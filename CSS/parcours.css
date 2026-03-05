@@ -62,3 +62,87 @@
     border-top: 1px solid rgba(255,255,255,0.1);
     margin: 20px 0;
 }
+
+
+/* Container de la frise */
+.timeline {
+    position: relative;
+    max-width: 100%;
+    margin: 40px 0;
+    padding-left: 40px; /* Espace pour la ligne */
+    text-align: left;
+}
+
+/* La ligne verticale bleue */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* Chaque bloc d'année */
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+/* Le point lumineux sur la ligne */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 10px #38bdf8;
+    z-index: 1;
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: #38bdf8;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.timeline-content h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.timeline-content p {
+    margin: 5px 0 0 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Animation d'apparition un par un (optionnel mais stylé) */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 2.7s; }
+.timeline-item:nth-child(2) { animation-delay: 3.0s; }
+.timeline-item:nth-child(3) { animation-delay: 3.3s; }
+
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.pro-intro {
+    background: rgba(56, 189, 248, 0.1); /* Un léger fond bleu très transparent */
+    padding: 15px;
+    border-left: 3px solid #38bdf8;
+    border-radius: 8px;
+    font-style: italic;
+}

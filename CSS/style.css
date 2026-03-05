@@ -104,3 +104,14 @@ body {
     text-shadow: 0 0 10px #38bdf8;
     transform: translateX(5px); /* Petit décalage vers la droite */
 }
+
+/* === ANIMATION D'ENTRÉE POUR LA PAGE PRINCIPALE === */
+
+.main-page {
+    animation: fadeInPage 1s ease-out; /* Effet de fondu doux au chargement */
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

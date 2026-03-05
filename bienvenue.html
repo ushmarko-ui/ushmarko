@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue | Portfolio de Marko</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* === ANIMATION DE BIENVENUE UNIQUE ET STYLÉE === */
+        
+        .welcome-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Ta photo s'agrandit en douceur */
+        .welcome-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #38bdf8; /* Ton bleu d'accentuation */
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+            animation: growPhoto 1s ease-out; /* Animation d'apparition */
+        }
+
+        @keyframes growPhoto {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Le titre arrive du bas et devient visible */
+        .welcome-title {
+            margin-top: 30px;
+            font-size: 3rem;
+            color: white;
+            animation: slideUp 0.8s ease-out 0.8s backwards; /* Délai pour après la photo */
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Le bouton apparaît en fondu après le titre */
+        .access-btn {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 15px 40px;
+            background-color: #38bdf8; /* Ton bleu */
+            color: #0f172a; /* Bleu sombre pour le texte */
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-in 1.6s backwards; /* Dernier élément à apparaître */
+        }
+
+        .access-btn:hover {
+            transform: scale(1.05); /* S'agrandit légèrement au survol */
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-page">
+        <img src="IMAGE/IMG_2701.jpg" alt="Photo de Marko" class="welcome-photo">
+        
+        <h1 class="welcome-title">Portfolio de Marko</h1>
+        
+        <a href="index.html" class="access-btn">Accéder au portfolio →</a>
+    </div>
+
+</body>
+</html>
