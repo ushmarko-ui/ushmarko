@@ -1,0 +1,59 @@
+/* --- BASES --- */
+body {
+    background-image: url('../IMAGE/Cybersecurity-strategy-services-cloud4c-webpage-1.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.page-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* --- DESIGN GLASS --- */
+.glass-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 35px;
+}
+
+h1 { font-size: 2.8rem; text-align: center; margin: 0; }
+h2 { color: #38bdf8; border-left: 4px solid #38bdf8; padding-left: 15px; margin-bottom: 20px; }
+.subtitle { text-align: center; color: #38bdf8; margin-top: 10px; }
+
+/* --- GRILLE COMPOSANTS --- */
+.components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.comp-item {
+    background: rgba(56, 189, 248, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    text-align: center;
+}
+
+/* --- IMAGES & LAYOUT --- */
+.img-full { width: 100%; border-radius: 15px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.1); }
+.img-responsive { width: 100%; border-radius: 10px; }
+.split-content { display: flex; gap: 30px; align-items: center; }
+.margin-top { margin-top: 25px; }
+
+.btn-back { color: #38bdf8; text-decoration: none; font-weight: bold; }
+.btn-back:hover { text-decoration: underline; }
+
+@media (max-width: 768px) { .split-content { flex-direction: column; } }

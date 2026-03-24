@@ -3,43 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu de la Vie C++ | Marko</title>
+    <title>Simulation Jeu de la Vie | Marko</title>
     <link rel="stylesheet" href="../CSS/projet-algo.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="page-wrapper">
-        
-        <a href="../index.html" class="btn-back">← Retour à l'accueil</a>
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
 
-        <div class="glass-card header-card">
+        <header class="glass-card header-section">
             <h1>Simulation du Jeu de la Vie</h1>
-            <p class="tagline">Automate cellulaire en C++ (Console & Graphique)</p>
-            <img src="/IMAGE/Screen game of life.png" alt="Cover Game of Life" class="img-main">
-        </div>
+            <p class="subtitle">Automate cellulaire développé en C++ (SFML & Console)</p>
+            <img src="/IMAGE/Screen game of life.png" alt="Game of Life Cover" class="img-full">
+        </header>
 
-        <div class="glass-card content-card">
+        <section class="glass-card">
             <h2>I. Modélisation et Diagrammes UML</h2>
-            <div class="row">
-                <div class="text-block">
-                    <p>Conception orientée objet pour séparer la logique du rendu :</p>
+            <div class="split-content">
+                <div class="text-side">
+                    <h3>Diagramme de Classes</h3>
+                    <p>L'architecture repose sur une séparation stricte des responsabilités :</p>
                     <ul>
-                        <li><strong>Grid :</strong> Gestion de la matrice de cellules.</li>
-                        <li><strong>Game :</strong> Calcul des cycles de vie.</li>
-                        <li><strong>Rule :</strong> Logique des règles de Conway.</li>
+                        <li><strong>Grid :</strong> Gère la matrice de <code>Cell</code>.</li>
+                        <li><strong>Game :</strong> Coordonne l'évolution et les générations.</li>
+                        <li><strong>Rule :</strong> Définit les conditions de survie/naissance.</li>
+                        <li><strong>SFMLRenderer :</strong> Gère l'affichage graphique.</li>
                     </ul>
                 </div>
-                <img src="../IMAGE/gol-uml.png" alt="UML" class="img-side">
+                <div class="image-side">
+                    <img src="/IMAGE/diagramme classes.png" alt="Diagramme de classes UML" class="img-responsive">
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="glass-card content-card">
-            <h2>II. Architecture Logicielle</h2>
-            <p>Organisation modulaire avec fichiers .hpp et .cpp séparés pour une meilleure maintenance.</p>
-            <img src="../IMAGE/gol-architecture.png" alt="Architecture" class="img-main">
-        </div>
+        <section class="glass-card">
+            <h2>II. Logique de Fonctionnement</h2>
+            <div class="split-content reverse">
+                <div class="text-side">
+                    <h3>Mode Console vs Mode Graphique</h3>
+                    <p>Le projet propose deux workflows distincts :</p>
+                    <ul class="step-list">
+                        <li><strong>Console :</strong> Chargement fichier → Choix itérations → Boucle d'affichage texte.</li>
+                        <li><strong>Graphique :</strong> Menu UI → Clic PLAY → Lancement boucle SFML → Rendu temps réel.</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <img src="/IMAGE/activité.png" alt="Diagramme d'activité" class="img-responsive">
+                </div>
+            </div>
+        </section>
 
+        <section class="glass-card">
+            <h2>III. Architecture du Projet</h2>
+            <p>Le projet est structuré de manière modulaire avec une séparation nette entre les en-têtes et les sources :</p>
+            <div class="files-grid">
+                <div class="file-box">
+                    <h4>Fichiers En-tête (.hpp)</h4>
+                    <code>Grid.hpp, Game.hpp, Rule.hpp, Cell.hpp, SFMLRenderer.hpp, UI.hpp...</code>
+                </div>
+                <div class="file-box">
+                    <h4>Fichiers Sources (.cpp)</h4>
+                    <code>Grid.cpp, Game.cpp, Rule.cpp, SFMLRenderer.cpp, main.cpp...</code>
+                </div>
+            </div>
+            <img src="/IMAGE/structure de fichiers.png" alt="Structure des fichiers" class="img-full margin-top">
+        </section>
+
+        <section class="glass-card">
+            <h2>IV. Algorithme des Règles (Rule.cpp)</h2>
+            <pre class="code-block">
+<code>bool Rule::willBeAlive(bool currentState, int aliveNeighbors) {
+    if (currentState) {
+        // Survie si 2 ou 3 voisins
+        return (aliveNeighbors == 2 || aliveNeighbors == 3);
+    } else {
+        // Naissance si exactement 3 voisins
+        return (aliveNeighbors == 3);
+    }
+}</code></pre>
+        </section>
     </div>
 
 </body>

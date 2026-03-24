@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Station Météo Embarquée | Marko</title>
+    <link rel="stylesheet" href="../CSS/projet-systeme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card header-section">
+            <h1>Worldwide Weather Watcher</h1>
+            <p class="subtitle">Station météo embarquée pour navires de surveillance (AIVM)</p>
+            <img src="/IMAGE/Maquette station meteo premiere page.jpg" alt="Station Météo Cover" class="img-full">
+        </header>
+
+        <section class="glass-card">
+            <h2>I. Architecture Hardware</h2>
+            <p>Le système repose sur une carte <strong>Arduino UNO</strong> et plusieurs modules de précision :</p>
+            <div class="components-grid">
+                <div class="comp-item"><strong>BME280 :</strong> Pression, Température, Humidité</div>
+                <div class="comp-item"><strong>GPS :</strong> Coordonnées en temps réel</div>
+                <div class="comp-item"><strong>RTC :</strong> Horodatage précis (Heure/Date)</div>
+                <div class="comp-item"><strong>SD Card :</strong> Stockage local des logs</div>
+                <div class="comp-item"><strong>LED RGB :</strong> Indicateur d'état (Standard / Erreur)</div>
+                <div class="comp-item"><strong>Capteur de Lumière :</strong> Luminosité ambiante</div>
+            </div>
+            <img src="/IMAGE/schéma des composants.png" alt="Schéma des composants" class="img-full margin-top">
+        </section>
+
+        <section class="glass-card">
+            <h2>II. Analyse et Cas d'Utilisation</h2>
+            <div class="split-content">
+                <div class="text-side">
+                    <h3>Bête à corne & Use Cases</h3>
+                    <p>L'objectif est de fournir des données fiables pour éviter les catastrophes naturelles.</p>
+                    <ul>
+                        <li><strong>Mode Standard :</strong> Collecte et stockage automatique toutes les 10 minutes.</li>
+                        <li><strong>Mode Maintenance :</strong> Accès aux données et changement de carte SD.</li>
+                        <li><strong>Interface LED :</strong> Feedback visuel de l'état du système.</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <img src="/IMAGE/cas d'utilisation.png" alt="Cas d'utilisation" class="img-responsive">
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>III. Réalisation de la Maquette</h2>
+            <p>Assemblage final de la station météo et tests de transmission de données.</p>
+            <img src="/IMAGE/Schéma de la maquette.png" alt="Photo de la maquette" class="img-full">
+        </section>
+    </div>
+
+</body>
+</html>
