@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Réseau Multi-sites | Marko</title>
+    <link rel="stylesheet" href="../CSS/projet-reseau.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card header-section">
+            <h1>Projet FUNKYTOWN</h1>
+            <p class="subtitle">Interconnexion sécurisée multi-sites et déploiement IPv6</p>
+            <img src="../IMAGE/reseau-topologie.png" alt="Topologie globale Packet Tracer" class="img-full">
+        </header>
+
+        <section class="glass-card">
+            <h2>I. Contexte du Projet</h2>
+            <div class="intro-box">
+                <p>Simulation de l'interconnexion de quatre sites géographiques (Aya, Jules, Erwan et eXia) au sein d'une infrastructure d'entreprise distribuée via un cœur de réseau FAI.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item"><strong>Routage :</strong> IPv6 Unicast-Routing</div>
+                <div class="stat-item"><strong>Services :</strong> DNS, FTP, HTTP</div>
+                <div class="stat-item"><strong>Sécurité :</strong> Contrôle d'accès RBAC</div>
+                <div class="stat-item"><strong>Outil :</strong> Cisco Packet Tracer</div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>II. Focus : Architecture du Site Engie</h2>
+            <div class="split-content">
+                <div class="text-side">
+                    <p>Conception d'un LAN haute densité pour le site Engie comprenant :</p>
+                    <ul>
+                        <li><strong>Structure :</strong> Topologie en étoile avec cascade de switchs.</li>
+                        <li><strong>Mobilité :</strong> Bornes Wi-Fi (Access Points) pour terminaux mobiles.</li>
+                        <li><strong>Services :</strong> Serveur local dédié (ENGIE_SERVER).</li>
+                        <li><strong>Segmentation :</strong> Isolation du trafic filaire et nomade.</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <img src="../IMAGE/reseau-engie.png" alt="Zoom site Engie" class="img-responsive">
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>III. Configuration et Tests de Connectivité</h2>
+            <p>Mise en place du routage moderne pour assurer la communication entre les sites distants et les ressources partagées.</p>
+            
+            <div class="code-container">
+                <h3>Aperçu Configuration (CLI Cisco)</h3>
+                <pre class="code-block">
+<code>! Activation du routage IPv6
+ipv6 unicast-routing
+
+! Configuration de l'interface vers le LAN
+interface GigabitEthernet0/0
+ ipv6 address 2001:DB8:ACAD:1::1/64
+ ipv6 enable
+ no shutdown</code></pre>
+            </div>
+
+            <div class="alert-box">
+                <p><strong>Résultat :</strong> Validation complète par tests de "Pings" inter-sites réussis, garantissant l'accès aux serveurs DNS et FTP globaux.</p>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

@@ -14,46 +14,84 @@
 
         <header class="glass-card header-section">
             <h1>Worldwide Weather Watcher</h1>
-            <p class="subtitle">Station météo embarquée pour navires de surveillance (AIVM)</p>
+            <p class="subtitle">Station météo embarquée pour navires AIVM (C++ Arduino)</p>
+            
+            <div class="intro-dev">
+                <p><strong>Note technique :</strong> J'ai intégralement programmé l'interaction de chaque composant hardware. De la gestion du bus I2C pour les capteurs à la communication série pour le GPS, chaque ligne de code a été conçue pour transformer des modules électroniques bruts en une maquette autonome capable de diagnostiquer ses propres erreurs.</p>
+            </div>
+
             <img src="/IMAGE/Maquette station meteo premiere page.jpg" alt="Station Météo Cover" class="img-full">
         </header>
 
         <section class="glass-card">
-            <h2>I. Architecture Hardware</h2>
-            <p>Le système repose sur une carte <strong>Arduino UNO</strong> et plusieurs modules de précision :</p>
-            <div class="components-grid">
-                <div class="comp-item"><strong>BME280 :</strong> Pression, Température, Humidité</div>
-                <div class="comp-item"><strong>GPS :</strong> Coordonnées en temps réel</div>
-                <div class="comp-item"><strong>RTC :</strong> Horodatage précis (Heure/Date)</div>
-                <div class="comp-item"><strong>SD Card :</strong> Stockage local des logs</div>
-                <div class="comp-item"><strong>LED RGB :</strong> Indicateur d'état (Standard / Erreur)</div>
-                <div class="comp-item"><strong>Capteur de Lumière :</strong> Luminosité ambiante</div>
-            </div>
-            <img src="/IMAGE/schéma des composants.png" alt="Schéma des composants" class="img-full margin-top">
-        </section>
-
-        <section class="glass-card">
-            <h2>II. Analyse et Cas d'Utilisation</h2>
+            <h2>I. Analyse Fonctionnelle & Besoins</h2>
+            
             <div class="split-content">
                 <div class="text-side">
-                    <h3>Bête à corne & Use Cases</h3>
-                    <p>L'objectif est de fournir des données fiables pour éviter les catastrophes naturelles.</p>
-                    <ul>
-                        <li><strong>Mode Standard :</strong> Collecte et stockage automatique toutes les 10 minutes.</li>
-                        <li><strong>Mode Maintenance :</strong> Accès aux données et changement de carte SD.</li>
-                        <li><strong>Interface LED :</strong> Feedback visuel de l'état du système.</li>
+                    <h3>Analyse "Bête à corne"</h3>
+                    <p>Le projet répond au besoin de fournir des données météo fiables en temps réel pour prévenir les catastrophes naturelles.</p>
+                </div>
+                <div class="image-side">
+                    <img src="/IMAGE/bete a corne .png" alt="Diagramme Bête à Corne" class="img-responsive">
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <div class="split-content reverse">
+                <div class="text-side">
+                    <h3>Diagramme des Cas d'Utilisation</h3>
+                    <p>L'utilisateur peut basculer entre deux modes principaux :</p>
+                    <ul class="projects-list">
+                        <li><strong>Collecter les données :</strong> Mode automatique (Standard/Eco).</li>
+                        <li><strong>Maintenance :</strong> Accès aux données et changement de carte SD.</li>
                     </ul>
                 </div>
                 <div class="image-side">
-                    <img src="/IMAGE/cas d'utilisation.png" alt="Cas d'utilisation" class="img-responsive">
+                    <img src="/IMAGE/cas d'utilisation.png" alt="Diagramme des Cas d'Utilisation" class="img-responsive">
                 </div>
             </div>
         </section>
 
         <section class="glass-card">
-            <h2>III. Réalisation de la Maquette</h2>
-            <p>Assemblage final de la station météo et tests de transmission de données.</p>
-            <img src="/IMAGE/Schéma de la maquette.png" alt="Photo de la maquette" class="img-full">
+            <h2>II. Architecture Hardware & Capteurs</h2>
+            <p>J'ai codé l'interface de chaque module Arduino pour assurer une collecte précise :</p>
+            <div class="components-grid">
+                <div class="comp-item"><strong>Capteur BME280 :</strong> Pression, Température, Humidité</div>
+                <div class="comp-item"><strong>Module GPS :</strong> Localisation temps réel</div>
+                <div class="comp-item"><strong>Horloge RTC :</strong> Horodatage via I2C</div>
+                <div class="comp-item"><strong>Lecteur SD :</strong> Logs de données</div>
+                <div class="comp-item"><strong>Chainable LED :</strong> Codes couleurs d'état</div>
+                <div class="comp-item"><strong>Boutons :</strong> Gestion des pressions longues (5s)</div>
+            </div>
+            <img src="/IMAGE/schéma des composants.png" alt="Composants Hardware" class="img-full margin-top">
+        </section>
+
+        <section class="glass-card">
+            <h2>III. Logique de Programmation (C++ Arduino)</h2>
+            <div class="code-container">
+                <h3>Auto-Diagnostic (RTC & GPS)</h3>
+                <pre class="code-block">
+<code>// Diagnostic de la RTC via le bus I2C
+Wire.beginTransmission(0x68);
+byte erreurRTC = Wire.endTransmission();
+
+if (erreurRTC != 0) {
+    rtcError = true; // Déclenche le clignotement d'alerte Rouge/Bleu
+}</code></pre>
+
+                <h3>Changement de Mode</h3>
+                <pre class="code-block">
+<code>if (pressDure >= 5000) { 
+    modeActuel = 3; // Mode Maintenance activé par pression de 5s
+    updateLED(); 
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>IV. Présentation de la Maquette</h2>
+            <img src="/IMAGE/Schéma de la maquette.png" alt="Maquette fonctionnelle" class="img-full">
         </section>
     </div>
 
