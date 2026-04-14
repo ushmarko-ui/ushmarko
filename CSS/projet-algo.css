@@ -1,26 +1,39 @@
-/* --- BASES & FOND --- */
+/* --- BASES & MATRIX --- */
 body {
-    background-image: url('../IMAGE/Cybersecurity-strategy-services-cloud4c-webpage-1.webp');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     margin: 0;
+    padding: 0;
+    background-color: #000; /* Fond noir pour l'effet Matrix */
     font-family: 'Inter', sans-serif;
     color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Derrière le contenu */
+    display: block;
 }
 
 .page-wrapper {
+    position: relative;
+    z-index: 1;
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
     gap: 40px;
+    background: transparent;
 }
 
-/* --- GLASSMORPHISM --- */
+/* --- GLASSMORPHISM (Lisibilité Max) --- */
 .glass-card {
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(15, 23, 42, 0.85); /* Opacité augmentée pour lire le texte technique */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -36,7 +49,7 @@ h3 { color: #38bdf8; }
 .subtitle { text-align: center; font-size: 1.2rem; color: #38bdf8; margin-bottom: 30px; }
 
 /* --- IMAGES --- */
-.img-full { width: 100%; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+.img-full { width: 100%; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); display: block; }
 .img-responsive { width: 100%; height: auto; border-radius: 10px; }
 .margin-top { margin-top: 30px; }
 
@@ -47,17 +60,38 @@ h3 { color: #38bdf8; }
 .image-side { flex: 1; }
 
 .files-grid { display: flex; gap: 20px; margin-top: 20px; }
-.file-box { flex: 1; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border: 1px solid rgba(56, 189, 248, 0.3); }
+.file-box { 
+    flex: 1; 
+    background: rgba(0,0,0,0.3); 
+    padding: 20px; 
+    border-radius: 15px; 
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    transition: 0.3s;
+}
+
+.file-box:hover {
+    background: rgba(56, 189, 248, 0.1);
+    transform: translateY(-5px);
+}
 
 /* --- CODE --- */
-.code-block { background: #011627; padding: 25px; border-radius: 15px; overflow-x: auto; color: #d6deeb; border-left: 5px solid #38bdf8; }
+.code-block { 
+    background: #011627; 
+    padding: 25px; 
+    border-radius: 15px; 
+    overflow-x: auto; 
+    color: #d6deeb; 
+    border-left: 5px solid #38bdf8;
+    font-family: 'Courier New', monospace;
+}
 
 /* --- NAVIGATION --- */
 .btn-back { color: #38bdf8; text-decoration: none; font-weight: bold; transition: 0.3s; }
-.btn-back:hover { color: white; padding-left: 10px; }
+.btn-back:hover { color: white; padding-left: 10px; text-shadow: 0 0 10px #38bdf8; }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 850px) {
     .split-content, .split-content.reverse { flex-direction: column; }
     .files-grid { flex-direction: column; }
+    h1 { font-size: 2.2rem; }
 }

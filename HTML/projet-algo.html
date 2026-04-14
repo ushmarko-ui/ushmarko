@@ -2,22 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Projet Réseau | Marko</title>
-    <link rel="stylesheet" href="../CSS/projet-reseau.css">
-</head>
-<body>
-...
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulation Jeu de la Vie | Marko</title>
+    
     <link rel="stylesheet" href="../CSS/projet-algo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <canvas id="matrixCanvas"></canvas>
 
     <div class="page-wrapper">
         <a href="../index.html" class="btn-back">← Retour au portfolio</a>
@@ -25,15 +18,15 @@
         <header class="glass-card header-section">
             <h1>Simulation du Jeu de la Vie</h1>
             <p class="subtitle">Automate cellulaire développé en C++ (SFML & Console)</p>
-            <p><strong>Note technique :</strong>Le Jeu de la Vie est un automate cellulaire imaginé par John Conway en 1970 : ce n'est pas un jeu au sens classique, mais une simulation mathématique où des cellules évoluent sur une grille selon des règles simples de survie et de reproduction. À partir d'une configuration initiale, des formes complexes, stables ou mouvantes apparaissent de manière totalement autonome, illustrant comment l'ordre peut naître du chaos.
-
-L'évolution de chaque cellule dépend de ses 8 voisines directes, selon trois règles d'or :
-
-Survie : Une cellule vivante reste en vie si elle a exactement 2 ou 3 voisines vivantes.
-
-Mort : Une cellule meurt de "solitude" (moins de 2 voisines) ou de "surpopulation" (plus de 3 voisines).
-
-Naissance : Une cellule morte devient vivante si elle possède exactement 3 voisines vivantes.</p>
+            
+            <div class="intro-box">
+                <p><strong>Note technique :</strong> Le Jeu de la Vie est un automate cellulaire imaginé par John Conway : une simulation mathématique où des cellules évoluent selon des règles de survie et de reproduction. L'évolution de chaque cellule dépend de ses 8 voisines directes.</p>
+                <ul class="intro-list">
+                    <li><strong>Survie :</strong> Reste en vie si elle a 2 ou 3 voisines vivantes.</li>
+                    <li><strong>Mort :</strong> Meurt par solitude (<2) ou surpopulation (>3).</li>
+                    <li><strong>Naissance :</strong> Devient vivante si elle a exactement 3 voisines vivantes.</li>
+                </ul>
+            </div>
             <img src="../IMAGE/Screen_game_of_life.png" alt="Game of Life Cover" class="img-full">
         </header>
 
@@ -63,8 +56,8 @@ Naissance : Une cellule morte devient vivante si elle possède exactement 3 vois
                     <h3>Mode Console vs Mode Graphique</h3>
                     <p>Le projet propose deux workflows distincts :</p>
                     <ul class="step-list">
-                        <li><strong>Console :</strong> Chargement fichier → Choix itérations → Boucle d'affichage texte.</li>
-                        <li><strong>Graphique :</strong> Menu UI → Clic PLAY → Lancement boucle SFML → Rendu temps réel.</li>
+                        <li><strong>Console :</strong> Chargement fichier → Choix itérations → Affichage texte.</li>
+                        <li><strong>Graphique :</strong> Menu UI → Rendu SFML temps réel.</li>
                     </ul>
                 </div>
                 <div class="image-side">
@@ -75,15 +68,14 @@ Naissance : Une cellule morte devient vivante si elle possède exactement 3 vois
 
         <section class="glass-card">
             <h2>III. Architecture du Projet</h2>
-            <p>Le projet est structuré de manière modulaire avec une séparation nette entre les en-têtes et les sources :</p>
             <div class="files-grid">
                 <div class="file-box">
                     <h4>Fichiers En-tête (.hpp)</h4>
-                    <code>Grid.hpp, Game.hpp, Rule.hpp, Cell.hpp, SFMLRenderer.hpp, UI.hpp...</code>
+                    <code>Grid.hpp, Game.hpp, Rule.hpp, Cell.hpp, SFMLRenderer.hpp</code>
                 </div>
                 <div class="file-box">
                     <h4>Fichiers Sources (.cpp)</h4>
-                    <code>Grid.cpp, Game.cpp, Rule.cpp, SFMLRenderer.cpp, main.cpp...</code>
+                    <code>Grid.cpp, Game.cpp, Rule.cpp, SFMLRenderer.cpp, main.cpp</code>
                 </div>
             </div>
             <img src="../IMAGE/structure_de_fichiers.png" alt="Structure des fichiers" class="img-full margin-top">
@@ -104,5 +96,56 @@ Naissance : Une cellule morte devient vivante si elle possède exactement 3 vois
         </section>
     </div>
 
+    </div> <script>
+    // Cette fonction contient toute la logique de l'animation
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
+
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+
+    // --- LA MAGIE EST ICI ---
+    // On lance l'animation au chargement du DOM
+    document.addEventListener('DOMContentLoaded', startMatrix);
+    // On la relance si on redimensionne
+    window.addEventListener('resize', startMatrix);
+    // Au cas où le DOM est déjà chargé (navigation rapide)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
 </body>
 </html>

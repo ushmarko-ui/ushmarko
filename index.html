@@ -33,6 +33,7 @@
                     <div class="links">
                         <a href="https://github.com/ushmarko-ui" target="_blank" class="btn btn-primary">Mon GitHub</a>
                          <a href="https://www.linkedin.com/in/marko-de-cespedes-139695360/" target="_blank" class="btn btn-primary">Mon Linkedin</a>
+                         <a href="https://tryhackme.com/p/ushmarko" target="_blank" class="btn btn-primary">Mon compte TryHackMe</a>
                     </div>
                 </div>
             </div>
@@ -44,10 +45,9 @@
                 <li><a href="HTML/projet-systeme.html">Projet Systèmes Embarqués en C Arduino</a></li>
                 <li><a href="HTML/projet-algo.html">Simulation du jeu de la vie en C++</a></li>
                 <li><a href="HTML/projet-web.html">Développement de Portfolio Web</a></li>
-                <li><a href="HTML/projet-reseau.html">Configuration de Réseaux Locaux</a></li>
+                <li><a href="HTML/projet-reseau.html">Projet réseaux</a></li>
             </ul>
         </div>
-
         <div class="cards-container">
             <div class="glass-card about-card">
                 <h2>Mon parcours étudiant</h2>
@@ -65,65 +65,56 @@
 
 </body>
 </html>
-</div> <script>
+</div> </div> <script>
+    // Cette fonction contient toute la logique de l'animation
+    function startMatrix() {
         const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
+        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
 
-        // On ajuste la taille du canvas à celle de la fenêtre
+        const ctx = canvas.getContext('2d');
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
 
-        // Les caractères à utiliser (tu peux ajouter des Katakana si tu veux le vrai style Matrix)
-        const characters = '01'; 
+        const characters = '01';
         const fontSize = 16;
-        const columns = canvas.width / fontSize; // Nombre de colonnes de pluie
-
-        // Un tableau pour gérer la position 'y' de chaque colonne
+        const columns = Math.floor(canvas.width / fontSize);
         const drops = [];
-        // On initialise chaque colonne en haut de l'écran
+
         for (let x = 0; x < columns; x++) {
             drops[x] = 1;
         }
 
-        // La fonction qui dessine la pluie
         function draw() {
-            // Fond noir très transparent pour créer l'effet de traînée
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Couleur verte fluo pour les chiffres (style image_6.png)
-            ctx.fillStyle = '#0F0'; 
+            ctx.fillStyle = '#0F0';
             ctx.font = fontSize + 'px arial';
 
-            // On boucle sur chaque colonne
             for (let i = 0; i < drops.length; i++) {
-                // On choisit un caractère au hasard (0 ou 1)
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                
-                // On le dessine à sa position (x, y)
-                // x = indice de colonne * taille police
-                // y = valeur de la drop * taille police
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-                // Si la goutte arrive en bas de l'écran, on la remet en haut aléatoirement
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
-
-                // On fait descendre la goutte
                 drops[i]++;
             }
         }
 
-        // On lance l'animation (toutes les 33 millisecondes = ~30 FPS)
-        setInterval(draw, 33);
+        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
 
-        // Gestion du redimensionnement de la fenêtre
-        window.addEventListener('resize', () => {
-            canvas.height = window.innerHeight;
-            canvas.width = window.innerWidth;
-            // Optionnel : recalculer les colonnes ici
-        });
-    </script>
+    // --- LA MAGIE EST ICI ---
+    // On lance l'animation au chargement du DOM
+    document.addEventListener('DOMContentLoaded', startMatrix);
+    // On la relance si on redimensionne
+    window.addEventListener('resize', startMatrix);
+    // Au cas où le DOM est déjà chargé (navigation rapide)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
 </body>
 </html>

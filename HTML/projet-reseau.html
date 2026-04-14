@@ -2,23 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Projet Réseau | Marko</title>
-    <link rel="stylesheet" href="../CSS/projet-reseau.css">
-</head>
-<body>
-...
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture Réseau Multi-sites | Marko</title>
+    
     <link rel="stylesheet" href="../CSS/projet-reseau.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <canvas id="matrixCanvas"></canvas>
 
     <div class="page-wrapper">
         <a href="../index.html" class="btn-back">← Retour au portfolio</a>
@@ -29,19 +21,17 @@
             
             <div class="intro-dev">
                 <p><strong>Note technique :</strong> Ce projet a été entièrement réalisé sur <strong>Cisco Packet Tracer</strong>. Nous avons configuré l'intégralité des équipements actifs (Routeurs, Switchs) et les services réseau pour interconnecter quatre sites distants en IPv6.</p>
-                 <ul class="intro-list">
-            <li><strong>Équipements :</strong> Configuration individuelle de chaque <strong>Routeur</strong> (routage IPv6, interfaces de bordure) et de chaque <strong>Switch</strong> (VLANs, cascade de commutateurs).</li>
-            <li><strong>Adressage Dynamique :</strong> Programmation des pools <strong>DHCP IPv6</strong> pour permettre l'auto-configuration immédiate des adresses IP sur l'ensemble des PC du réseau.</li>
-            <li><strong>Connectivité Sans-fil :</strong> Déploiement et sécurisation du <strong>Wi-Fi</strong> sur chaque site via des bornes d'accès (Access Points) pour les équipements nomades.</li>
-        </ul>
-                <img src="../IMAGE/site_funkytown.png" alt="Funkytown" class="img-full img-border">
+                <ul class="intro-list">
+                    <li><strong>Équipements :</strong> Configuration individuelle de chaque <strong>Routeur</strong> (routage IPv6) et de chaque <strong>Switch</strong> (VLANs).</li>
+                    <li><strong>Adressage Dynamique :</strong> Programmation des pools <strong>DHCP IPv6</strong> pour l'auto-configuration des PC.</li>
+                    <li><strong>Connectivité Sans-fil :</strong> Déploiement et sécurisation du <strong>Wi-Fi</strong> via des bornes d'accès (Access Points).</li>
+                </ul>
             </div>
+            <img src="../IMAGE/site_funkytown.png" alt="Funkytown" class="img-full img-border">
         </header>
 
         <section class="glass-card">
             <h2>I. Analyse du Besoin et Planification</h2>
-            
-            
             <div class="margin-top">
                 <h3>Diagramme GANTT</h3>
                 <p>Ordonnancement des tâches sur 4 semaines pour garantir la livraison du projet.</p>
@@ -58,7 +48,7 @@
                 <h3>Configurations Techniques :</h3>
                 <ul>
                     <li><strong>IPv6 Unicast :</strong> Activation du routage global sur les équipements Cisco.</li>
-                    <li><strong>DHCP IPv6 :</strong> Configuration de l'attribution automatique des adresses pour simplifier l'administration et éviter les conflits d'IP sur les hôtes.</li>
+                    <li><strong>DHCP IPv6 :</strong> Attribution automatique pour éviter les conflits d'IP.</li>
                 </ul>
             </div>
         </section>
@@ -68,15 +58,7 @@
 
             <div class="site-block">
                 <h3>1. Site ENGIE (Hotline & Conception)</h3>
-                <p>Le site Engie représente le pôle le plus dense de l'infrastructure (Hotline & Conception), nécessitant une gestion avancée de la connectivité filaire et mobile.
-
-Équipements : Déploiement d'une cascade de commutateurs (Switchs) Cisco pour supporter plus de 25 postes de travail fixes et un serveur local (ENGIE_SERVER).
-
-Services Mobiles (Wi-Fi) : Installation de bornes d'accès (Access Points) permettant la connexion sans fil des terminaux nomades, avec une isolation du trafic pour garantir la performance du réseau filaire.
-
-Adressage DHCP IPv6 : Configuration d'un pool DHCP IPv6 pour l'attribution automatique des adresses. Cela assure une connectivité instantanée aux collaborateurs et simplifie la gestion des équipements mobiles et fixes.
-
-Interconnexion : Le routeur de bordure assure le lien avec le FAI, permettant l'accès sécurisé aux ressources globales de l'entreprise (eXia).</p>
+                <p>Pôle le plus dense nécessitant une gestion avancée de la connectivité filaire et mobile via une cascade de commutateurs Cisco.</p>
                 <img src="../IMAGE/Engie.png" alt="Site Engie" class="img-full">
                 <div class="tech-tag"><strong>Wi-Fi :</strong> Bornes AP configurées pour les Laptops et Smartphones.</div>
             </div>
@@ -85,54 +67,90 @@ Interconnexion : Le routeur de bordure assure le lien avec le FAI, permettant l'
 
             <div class="site-block">
                 <h3>2. Site BIBLIOTHÈQUE (Accès Public)</h3>
-                <p>Ce site a été configuré pour assurer l'accès réseau des postes publics et administratifs via Cisco Packet Tracer.
-Équipements : Utilisation de commutateurs (Switchs) pour la distribution locale et d'un routeur de bordure pour l'interconnexion.
-Routage IPv6 : Activation du ipv6 unicast-routing pour une communication directe et moderne avec le cœur de réseau (FAI).
-Service DHCP IPv6 : Mise en place de l'attribution automatique des adresses IP. Cela permet aux ordinateurs de se connecter instantanément sans configuration manuelle, évitant ainsi les erreurs et les conflits d'IP.
-Connectivité : Paramétrage de routes statiques pour garantir l'accès aux serveurs centraux (DNS/FTP) du site eXia.</p>
+                <p>Configuration pour assurer l'accès réseau des postes publics et administratifs. Activation du <code>ipv6 unicast-routing</code>.</p>
                 <img src="../IMAGE/Bibli.png" alt="Site Bibliothèque" class="img-full">
-                <img src="../IMAGE/routeur_et_switch_bibli.png" alt="Site Bibliothèque" class="img-full">
+                <img src="../IMAGE/routeur_et_switch_bibli.png" alt="Détails Réseau Bibliothèque" class="img-full">
             </div>
 
             <hr class="separator">
 
             <div class="site-block">
                 <h3>3. Site DATACENTER / DIGIPLEX (Stockage)</h3>
-                <p>Le site Digiplex constitue le cœur névralgique de l’infrastructure, hébergeant le Datacenter et les services de stockage critiques de l'entreprise.
-Équipements : Architecture multi-étages en étoile étendue. Utilisation de commutateurs haute performance pour relier le centre de données (rez-de-chaussée) aux pôles administratifs et de production.
-Services de Données : Configuration des serveurs de stockage et de gestion (AD, Exchange) avec des liens redondants pour assurer une haute disponibilité des ressources.
-Connectivité Wi-Fi : Déploiement de bornes d'accès (Access Points) spécifiquement pour les étages de la Direction et de l'Administration, permettant une mobilité totale des cadres.
-Adressage DHCP IPv6 : Mise en place d'un pool DHCP IPv6 dédié pour automatiser la configuration réseau de tous les équipements et serveurs, garantissant une communication fluide avec les autres sites via le FAI.</p>
+                <p>Cœur névralgique hébergeant les services critiques (AD, Exchange) avec une architecture multi-étages en étoile étendue.</p>
                 <img src="../IMAGE/digiplex.png" alt="Digiplex" class="img-full">
                 <img src="../IMAGE/datacenter.png" alt="Datacenter" class="img-full">
-                <div class="tech-tag"><strong>Wi-Fi :</strong> Réseau sans-fil déployé pour les étages administratifs.</div>
             </div>
 
             <hr class="separator">
 
             <div class="site-block">
                 <h3>4. Site EXIA (Services Centraux)</h3>
-                <p>Le site eXia héberge les Services Centraux de l'infrastructure. C'est le point de ressources commun pour tous les autres sites distants du projet Funkytown.
-Équipements : Architecture simplifiée centrée sur un routeur de bordure et un commutateur (Switch) haute performance pour desservir la ferme de serveurs.
-Services Critiques : Configuration et déploiement des serveurs DNS (résolution de noms), FTP (transfert de fichiers) et HTTP (hébergement web).
-Routage IPv6 : Mise en place de routes statiques et activation du ipv6 unicast-routing pour permettre aux sites Engie, Bibliothèque et Digiplex d'accéder aux services via le cœur de réseau (FAI).
-Adressage DHCP IPv6 : Utilisation du DHCP IPv6 pour l'auto-configuration des serveurs et des postes de gestion, garantissant une accessibilité permanente et une maintenance simplifiée des services applicatifs.</p>
+                <p>Point de ressources commun (DNS, FTP, HTTP) permettant aux autres sites d'accéder aux services via le cœur de réseau (FAI).</p>
                 <img src="../IMAGE/eXia.png" alt="Site eXia" class="img-full">
             </div>
         </section>
 
-
-<section class="glass-card conclusion-section">
-    <h2>06. Bilan et Conclusion</h2>
-    <div class="conclusion-content">
-        <p>Le projet <strong>Funkytown</strong> a permis de valider l'interconnexion complète d'une infrastructure moderne sous <strong>IPv6</strong>. La simulation sur Packet Tracer a démontré la viabilité du plan d'adressage et l'efficacité des services automatisés (DHCP, DNS).</p>
-        <p>Cette expérience confirme l'importance d'une planification rigoureuse (GANTT) couplée à une maîtrise des protocoles de routage pour assurer la haute disponibilité d'un réseau d'entreprise multi-sites.</p>
-    </div>
-    <div class="alert-box success">
-        <strong>Statut du Projet :</strong> Validé à 100% - Connectivité Totale.
-    </div>
-</section>
+        <section class="glass-card conclusion-section">
+            <h2>06. Bilan et Conclusion</h2>
+            <div class="conclusion-content">
+                <p>Le projet <strong>Funkytown</strong> a permis de valider l'interconnexion complète d'une infrastructure moderne sous <strong>IPv6</strong>.</p>
+            </div>
+            <div class="alert-box success">
+                <strong>Statut du Projet :</strong> Validé à 100% - Connectivité Totale.
+            </div>
+        </section>
     </div>
 
+    </div> <script>
+    // Cette fonction contient toute la logique de l'animation
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
+
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+
+    // --- LA MAGIE EST ICI ---
+    // On lance l'animation au chargement du DOM
+    document.addEventListener('DOMContentLoaded', startMatrix);
+    // On la relance si on redimensionne
+    window.addEventListener('resize', startMatrix);
+    // Au cas où le DOM est déjà chargé (navigation rapide)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
 </body>
 </html>

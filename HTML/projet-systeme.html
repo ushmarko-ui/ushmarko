@@ -2,23 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Projet Réseau | Marko</title>
-    <link rel="stylesheet" href="../CSS/projet-reseau.css">
-</head>
-<body>
-...
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Station Météo Embarquée | Marko</title>
+    
     <link rel="stylesheet" href="../CSS/projet-systeme.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <canvas id="matrixCanvas"></canvas>
 
     <div class="page-wrapper">
         <a href="../index.html" class="btn-back">← Retour au portfolio</a>
@@ -36,7 +28,6 @@
 
         <section class="glass-card">
             <h2>I. Analyse Fonctionnelle & Besoins</h2>
-            
             <div class="split-content">
                 <div class="text-side">
                     <h3>Analyse "Bête à corne"</h3>
@@ -82,8 +73,7 @@
             <h2>III. Logique de Programmation (C++ Arduino)</h2>
             <div class="code-container">
                 <h3>Auto-Diagnostic (RTC & GPS)</h3>
-                <pre class="code-block">
-<code>// Diagnostic de la RTC via le bus I2C
+                <pre class="code-block"><code>// Diagnostic de la RTC via le bus I2C
 Wire.beginTransmission(0x68);
 byte erreurRTC = Wire.endTransmission();
 
@@ -92,8 +82,7 @@ if (erreurRTC != 0) {
 }</code></pre>
 
                 <h3>Changement de Mode</h3>
-                <pre class="code-block">
-<code>if (pressDure >= 5000) { 
+                <pre class="code-block"><code>if (pressDure >= 5000) { 
     modeActuel = 3; // Mode Maintenance activé par pression de 5s
     updateLED(); 
 }</code></pre>
@@ -106,5 +95,56 @@ if (erreurRTC != 0) {
         </section>
     </div>
 
+    </div> <script>
+    // Cette fonction contient toute la logique de l'animation
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
+
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+
+    // --- LA MAGIE EST ICI ---
+    // On lance l'animation au chargement du DOM
+    document.addEventListener('DOMContentLoaded', startMatrix);
+    // On la relance si on redimensionne
+    window.addEventListener('resize', startMatrix);
+    // Au cas où le DOM est déjà chargé (navigation rapide)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
 </body>
 </html>
