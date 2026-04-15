@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Réseau Multi-sites | Marko</title>
+    
+    <link rel="stylesheet" href="../CSS/projet-BDD.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card header-section">
+            <h1>Projet CLEARDATA</h1>
+            <p class="subtitle">Pour un air plus pur, une donnée plus claire.</p>
+            
+            <div class="intro-dev">
+                <p> CLEARDATA est une solution innovante de surveillance de la qualité de l'air. Le projet consiste à collecter des données environnementales (température, humidité, gaz polluants) via des capteurs pour les analyser et les afficher de manière simplifiée.</p>
+                <ul class="intro-list">
+                    <li><strong>Base de données :</strong> Configuration individuelle de chaque <strong>Routeur</strong> (routage IPv6) et de chaque <strong>Switch</strong> (VLANs).</li>
+                    <li><strong>Section Analyse :</strong> Réalisation du MCD (Modèle Conceptuel de Données) pour structurer les entités : Capteurs, Localisations et Mesures de pollution.</li>
+                    <li><strong>Section Données :</strong> Génération d'un jeu de fausses données (Mock Data) pour simuler des relevés de CO2 et de particules fines sur plusieurs mois afin de tester la robustesse des requêtes.</li>
+                    <li><strong>Section Diagrammes :</strong> Utilisation de diagrammes UML/Entité-Association pour visualiser les relations (Un capteur transmet plusieurs mesures).</li>
+                </ul>
+            </div>
+            <img src="../IMAGE/databases.jpg" alt="BDD" class="img-full img-border">
+        </header>
+
+        <section class="glass-card">
+            <h2>I. Contexte</h2>
+            <div class="margin-top">
+                
+                <p>Le Ministère français et ClearData collaborent à la création d'une base de données SQL centralisée afin de remplacer les fichiers Excel actuellement utilisés par les agences régionales. Ce nouveau système permet de suivre avec précision la qualité de l'air, la gestion du personnel et le parc de capteurs, tout en garantissant un meilleur reporting et une conformité totale avec le RGPD (Règlement Général sur la Protection des Données).</p>
+                
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>II. Modèle conceptuel de données</h2>
+            <img src="../IMAGE/mcd-BDD.jpg" alt="mcd" class="img-full img-border">
+           
+            
+            <div class="explanation-box">
+                <h3>Configurations Techniques :</h3>
+                <ul>
+                    <li>1. Le cœur du système : Les Mesures (Measurement)
+C'est la table la plus importante. Elle enregistre ce qu'il se passe dans l'air.
+
+Ses propriétés : La valeur (la pollution), l'unité (ex: µg/m³), et surtout le Timestamp (date et heure précise).
+
+La relation : Une mesure est forcément envoyée par un capteur (Sensor).</li>
+                    <li>2. Le matériel : Les Capteurs (Sensor)
+C'est le pont entre le monde réel et ta base.
+
+Ses propriétés : Le nom du capteur et son modèle.
+
+Les relations :
+
+Il appartient à une Région spécifique (ex: Île-de-France).
+
+Il est géré par un membre de l'équipe (Staff).</li>
+                     <li>3. La structure : Les Régions (Region)
+C'est ce qui remplace les vieux fichiers Excel éparpillés.
+
+Rôle : On centralise les données par zone géographique. Une région peut avoir plusieurs capteurs, mais un capteur n'est que dans une seule région.</li>
+                      <li>4. L'humain et la sécurité : Le Personnel (Staff)
+C'est ici qu'intervient le RGPD dont on parlait.
+
+Rôle : On stocke qui travaille sur quel capteur.
+
+Sécurité : On voit des champs comme Password et Email. C'est l'aspect "authentification" de ton projet.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>III. Architecture Détaillée par Site</h2>
+
+            <div class="site-block">
+                <h3>1. Site ENGIE (Hotline & Conception)</h3>
+                <p>Pôle le plus dense nécessitant une gestion avancée de la connectivité filaire et mobile via une cascade de commutateurs Cisco.</p>
+                <img src="../IMAGE/Engie.png" alt="Site Engie" class="img-full">
+                <div class="tech-tag"><strong>Wi-Fi :</strong> Bornes AP configurées pour les Laptops et Smartphones.</div>
+            </div>
+
+            <hr class="separator">
+
+            <div class="site-block">
+                <h3>2. Site BIBLIOTHÈQUE (Accès Public)</h3>
+                <p>Configuration pour assurer l'accès réseau des postes publics et administratifs. Activation du <code>ipv6 unicast-routing</code>.</p>
+                <img src="../IMAGE/Bibli.png" alt="Site Bibliothèque" class="img-full">
+                <img src="../IMAGE/routeur_et_switch_bibli.png" alt="Détails Réseau Bibliothèque" class="img-full">
+            </div>
+
+            <hr class="separator">
+
+            <div class="site-block">
+                <h3>3. Site DATACENTER / DIGIPLEX (Stockage)</h3>
+                <p>Cœur névralgique hébergeant les services critiques (AD, Exchange) avec une architecture multi-étages en étoile étendue.</p>
+                <img src="../IMAGE/digiplex.png" alt="Digiplex" class="img-full">
+                <img src="../IMAGE/datacenter.png" alt="Datacenter" class="img-full">
+            </div>
+
+            <hr class="separator">
+
+            <div class="site-block">
+                <h3>4. Site EXIA (Services Centraux)</h3>
+                <p>Point de ressources commun (DNS, FTP, HTTP) permettant aux autres sites d'accéder aux services via le cœur de réseau (FAI).</p>
+                <img src="../IMAGE/eXia.png" alt="Site eXia" class="img-full">
+            </div>
+        </section>
+
+        <section class="glass-card conclusion-section">
+            <h2>06. Bilan et Conclusion</h2>
+            <div class="conclusion-content">
+                <p>Le projet <strong>Funkytown</strong> a permis de valider l'interconnexion complète d'une infrastructure moderne sous <strong>IPv6</strong>.</p>
+            </div>
+            <div class="alert-box success">
+                <strong>Statut du Projet :</strong> Validé à 100% - Connectivité Totale.
+            </div>
+        </section>
+    </div>
+
+    </div> <script>
+    // Cette fonction contient toute la logique de l'animation
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
+
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+
+    // --- LA MAGIE EST ICI ---
+    // On lance l'animation au chargement du DOM
+    document.addEventListener('DOMContentLoaded', startMatrix);
+    // On la relance si on redimensionne
+    window.addEventListener('resize', startMatrix);
+    // Au cas où le DOM est déjà chargé (navigation rapide)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
+</body>
+</html>
