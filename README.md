@@ -1,3 +1,5 @@
+[![Lien vers mon Portfolio](https://img.shields.io/badge/Consulter%20mon%20Portfolio-🚀-brightgreen?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ushmarko-ui.github.io/ushmarko/)
+
 # Portfolio de Marko De Cespedes
 ### Étudiant en 2ème année : Ingénieur en Cybersécurité
 
@@ -40,10 +42,7 @@ Un projet majeur de simulation réseau sous **Cisco Packet Tracer** incluant :
 * `/IMAGE` : Captures d'écran des architectures, schémas SQL et preuves techniques.
 * `index.html` : Page d'accueil du portfolio.
 
----
-
-## 📧 Me contacter
-Si vous êtes intéressé par mon profil ou si vous avez des questions sur mes projets :
 
 
-[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)]([https://github.com/ushmarko-ui](https://ushmarko-ui.github.io/ushmarko/))
+
+
