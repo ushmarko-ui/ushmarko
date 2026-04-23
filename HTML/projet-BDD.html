@@ -76,54 +76,151 @@ Rôle : On stocke qui travaille sur quel capteur.
 Sécurité : On voit des champs comme Password et Email. C'est l'aspect "authentification" de ton projet.</li>
                 </ul>
             </div>
-        </section>
+        <section class="glass-card">
+    <h2>III. Conception de la Base de Données</h2>
+    <p>Pour assurer l'intégrité et la cohérence des informations, nous avons établi un dictionnaire de données rigoureux définissant chaque entité du système :</p>
+    
+    <ul class="step-list">
+        <li><strong>Agence :</strong> Représente les points physiques de l'organisation. Elle contient les informations de localisation (adresse, ville, région) et sa date de création.</li>
+        <li><strong>Personnel :</strong> Regroupe tous les collaborateurs. Chaque fiche précise le rôle (technique, administratif, chef) et gère les dates de contrat pour le suivi RH.</li>
+        <li><strong>Capteur :</strong> C'est l'élément technique central. On y définit le type de technologie utilisée, la date d'installation et son état actuel (en service, maintenance, etc.).</li>
+        <li><strong>Gaz :</strong> Identifie précisément les substances surveillées (méthane, ozone, CO2). On y stocke la formule chimique et le type de gaz (GES).</li>
+        <li><strong>Données :</strong> Table de stockage des relevés. Elle fait le lien entre un capteur et un gaz pour enregistrer une concentration précise à un instant T.</li>
+        <li><strong>Rapport :</strong> Document de synthèse rédigé par le personnel, incluant un titre, un résumé et une conclusion basés sur les analyses.</li>
+    </ul>
+
+    <img src="/IMAGE/dictionnaire de données.png" alt="Dictionnaire de données du projet" class="img-full margin-top">
+</section>
 
         <section class="glass-card">
-            <h2>III. Architecture Détaillée par Site</h2>
+    <h2>IV. Réalisation d'Arbres Algébriques</h2>
+    <p>Pour optimiser et structurer les requêtes de notre base de données, nous avons modélisé deux arbres algébriques. Ces schémas représentent la logique de sélection et de projection des données que nous souhaitons intégrer au système :</p>
+    
+    <ul class="step-list">
+        <li><strong>Arbre n°1 (Requête Agence) :</strong> Ce premier arbre illustre la récupération spécifique du nom d'une agence à partir de l'entité globale, permettant une lecture rapide des points physiques.</li>
+        <li><strong>Arbre n°2 (Requête Personnel) :</strong> Plus complexe, cet arbre effectue une double sélection. Il filtre le personnel par identifiant d'agence (id agence = 10) et par poste (agent technique) avant de projeter l'identité des collaborateurs.</li>
+    </ul>
 
-            <div class="site-block">
-                <h3>1. Site ENGIE (Hotline & Conception)</h3>
-                <p>Pôle le plus dense nécessitant une gestion avancée de la connectivité filaire et mobile via une cascade de commutateurs Cisco.</p>
-                <img src="../IMAGE/Engie.png" alt="Site Engie" class="img-full">
-                <div class="tech-tag"><strong>Wi-Fi :</strong> Bornes AP configurées pour les Laptops et Smartphones.</div>
+    <div style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">Arbre Algébrique n°1</p>
+            <img src="/IMAGE/Arbre n1.png" alt="Arbre algébrique numéro 1" class="img-full" style="border: 1px solid #38bdf8;">
+        </div>
+        <div style="flex: 1; min-width: 300px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">Arbre Algébrique n°2</p>
+            <img src="/IMAGE/Arbre n2.png" alt="Arbre algébrique numéro 2" class="img-full" style="border: 1px solid #38bdf8;">
+        </div>
+    </div>
+</section>
+<section class="glass-card">
+    <h2>V. Migration vers une Base de Données Relationnelle</h2>
+    <p>Afin de pouvoir exécuter des requêtes complexes et assurer la pérennité de nos données, nous avons procédé à la migration de notre inventaire. Nous avons converti l'intégralité de la base de données initialement stockée sur Excel vers un format SQL structuré :</p>
+    
+    <ul class="step-list">
+        <li><strong>Base Excel (Source) :</strong> Centralisation initiale des relevés (capteurs, villes, gaz, ppm) sous forme de tableur, idéale pour la saisie manuelle mais limitée pour l'automatisation.</li>
+        <li><strong>Base SQL (Cible) :</strong> Transformation en scripts DDL (Data Definition Language) avec création de tables, définitions de clés primaires/étrangères et insertion automatique des données pour permettre le requêtage dynamique.</li>
+    </ul>
+
+    <div style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">1. Base de données Excel</p>
+            <img src="/IMAGE/BDD excel.png" alt="Base de données format Excel" class="img-full" style="border: 1px solid #38bdf8; height: 300px; object-fit: cover;">
+        </div>
+        <div style="flex: 1; min-width: 300px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">2. Conversion SQL (Scripts)</p>
+            <img src="/IMAGE/BDD.png" alt="Base de données format SQL" class="img-full" style="border: 1px solid #38bdf8; height: 300px; object-fit: cover;">
+        </div>
+    </div>
+</section>
+<section class="glass-card">
+    <h2>VI. Implémentation des Requêtes SQL</h2>
+    <p>Une fois la structure logique définie par nos arbres algébriques, nous avons traduit ces modèles en requêtes SQL concrètes afin d'interroger notre base de données. Voici l'application pour la gestion des agences :</p>
+    
+    <div class="split-content">
+        <div class="text-side">
+            <h3>Requête 1 : Liste exhaustive des agences</h3>
+            <p>Cette requête permet d'extraire le nom de l'ensemble des agences enregistrées dans le système. C'est l'application directe de notre premier arbre algébrique.</p>
+            
+            <div class="code-block">
+                <code>SELECT nomAgence FROM agence;</code>
             </div>
+            
+            <p class="margin-top"><strong>Résultat obtenu :</strong> Le système retourne une liste propre et structurée (ex: ClearData Aura, ClearData Bretagne, etc.), confirmant que la base de données répond correctement aux instructions DQL (Data Query Language).</p>
+        </div>
+    </div>
 
-            <hr class="separator">
-
-            <div class="site-block">
-                <h3>2. Site BIBLIOTHÈQUE (Accès Public)</h3>
-                <p>Configuration pour assurer l'accès réseau des postes publics et administratifs. Activation du <code>ipv6 unicast-routing</code>.</p>
-                <img src="../IMAGE/Bibli.png" alt="Site Bibliothèque" class="img-full">
-                <img src="../IMAGE/routeur_et_switch_bibli.png" alt="Détails Réseau Bibliothèque" class="img-full">
+    <div style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">Capture du code et du résultat</p>
+            <img src="/IMAGE/Request1.png" alt="Requête SQL et résultat pour les agences" class="img-full" style="border: 1px solid #38bdf8;">
+        </div>
+    </div>
+</section>
+<section class="glass-card">
+    <h2>VII. Requêtes SQL Avancées</h2>
+    <p>Après avoir conçu les arbres algébriques, nous avons implémenté les requêtes en SQL. Voici l'application concrète pour le filtrage du personnel :</p>
+    
+    <div class="split-content">
+        <div class="text-side">
+            <h3>Requête 2 : Liste du personnel technique de l'agence de Bordeaux</h3>
+            <p>Cette requête traduit notre second arbre algébrique. Elle permet d'extraire précisément les noms et prénoms des collaborateurs rattachés à une agence spécifique tout en filtrant par type de poste.</p>
+            
+            <div class="code-block">
+                <code>
+                    SELECT pe.nom, pe.prenom <br>
+                    FROM personnel pe <br>
+                    WHERE pe.idAgence = 10 AND pe.poste = 'agent technique';
+                </code>
             </div>
+            
+            <p class="margin-top"><strong>Analyse technique :</strong> L'utilisation des clauses <code>WHERE</code> combinées avec l'opérateur <code>AND</code> permet de cibler des données très précises. Le résultat affiche uniquement les agents techniques de l'agence n°10 (Bordeaux), démontrant l'efficacité du système de tri mis en place.</p>
+        </div>
+    </div>
 
-            <hr class="separator">
+    <div style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">Capture du code et du résultat (Filtre Personnel)</p>
+            <img src="/IMAGE/Reaquest2.png" alt="Requête SQL et résultat pour le personnel technique" class="img-full" style="border: 1px solid #38bdf8;">
+        </div>
+    </div>
+</section>
+<section class="glass-card">
+    <h2>VIII. Peuplement et Sources des Données</h2>
+    <p>Pour rendre notre simulation réaliste et fonctionnelle, nous avons alimenté notre base de données en combinant plusieurs sources d'informations complémentaires :</p>
+    
+    <ul class="step-list">
+        <li><strong>Open Data Gouvernemental (Data.gouv) :</strong> Utilisation de données réelles pour les localisations géographiques et les référentiels de gaz, garantissant la cohérence scientifique du projet.</li>
+        <li><strong>Données de Consigne (Exemple.xls) :</strong> Intégration des données initiales fournies dans le cahier des charges pour respecter les contraintes métier du projet.</li>
+        <li><strong>Génération par Intelligence Artificielle (ChatGPT) :</strong> Utilisation de l'IA pour générer un volume important de données fictives (noms du personnel, adresses, dates de contrats) afin de tester la robustesse de la base et la performance des requêtes.</li>
+    </ul>
 
-            <div class="site-block">
-                <h3>3. Site DATACENTER / DIGIPLEX (Stockage)</h3>
-                <p>Cœur névralgique hébergeant les services critiques (AD, Exchange) avec une architecture multi-étages en étoile étendue.</p>
-                <img src="../IMAGE/digiplex.png" alt="Digiplex" class="img-full">
-                <img src="../IMAGE/datacenter.png" alt="Datacenter" class="img-full">
-            </div>
+    <div style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
+        <div style="flex: 1; max-width: 800px;">
+            <p style="text-align: center; color: #38bdf8; font-weight: bold;">Synthèse des sources et aperçu des données générées</p>
+            <img src="/IMAGE/Pop.png" alt="Sources de données et tableur de population" class="img-full" style="border: 1px solid #38bdf8;">
+        </div>
+    </div>
+</section>
+<section class="glass-card">
+    <h2>Conclusion du Projet</h2>
+    <p>La réalisation du projet <strong>CLEARDATA</strong> a été une étape clé dans ma formation d'ingénieur en cybersécurité. Ce travail m'a permis de lier des concepts théoriques complexes à des applications techniques concrètes.</p>
+    
+    <div class="split-content">
+        <div class="text-side">
+            <h3>Compétences acquises :</h3>
+            <ul class="step-list">
+                <li><strong>Maîtrise de la donnée :</strong> Capacité à structurer un dictionnaire de données et à migrer des informations d'un format bureautique (Excel) vers un environnement relationnel (SQL).</li>
+                <li><strong>Logique algorithmique :</strong> Modélisation de requêtes via des arbres algébriques pour optimiser les performances de recherche.</li>
+                <li><strong>Adaptabilité technologique :</strong> Utilisation d'outils d'IA générative pour créer des jeux de tests et exploitation de données ouvertes (Open Data) gouvernementales.</li>
+                <li><strong>Vision globale :</strong> Compréhension de l'interdépendance entre l'infrastructure réseau et la gestion des bases de données.</li>
+            </ul>
+        </div>
+    </div>
 
-            <hr class="separator">
-
-            <div class="site-block">
-                <h3>4. Site EXIA (Services Centraux)</h3>
-                <p>Point de ressources commun (DNS, FTP, HTTP) permettant aux autres sites d'accéder aux services via le cœur de réseau (FAI).</p>
-                <img src="../IMAGE/eXia.png" alt="Site eXia" class="img-full">
-            </div>
-        </section>
-
-        <section class="glass-card conclusion-section">
-            <h2>06. Bilan et Conclusion</h2>
-            <div class="conclusion-content">
-                <p>Le projet <strong>Funkytown</strong> a permis de valider l'interconnexion complète d'une infrastructure moderne sous <strong>IPv6</strong>.</p>
-            </div>
-            <div class="alert-box success">
-                <strong>Statut du Projet :</strong> Validé à 100% - Connectivité Totale.
-            </div>
-        </section>
+    <div class="final-note" style="margin-top: 20px; padding: 15px; border-left: 4px solid #0F0; background: rgba(0, 255, 0, 0.05);">
+        <p><em>"Ce projet démontre ma capacité à gérer un flux de données complet, de sa modélisation abstraite jusqu'à son exploitation technique sécurisée."</em></p>
+    </div>
+</section>
     </div>
 
     </div> <script>
