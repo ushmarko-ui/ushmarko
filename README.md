@@ -20,27 +20,17 @@ Ce portfolio est une vitrine interactive utilisant un thème inspiré de l'unive
 
 ## Contenu du Projet
 
-### 1. Projet FUNKYTOWN (Simulation d'Infrastructure)
-Un projet majeur de simulation réseau sous **Cisco Packet Tracer** incluant :
-* **Architecture Multi-sites :** Interconnexion de 4 sites distants en IPv6.
-* **Sécurité & Services :** Configuration de VLANs, DHCP IPv6, et sécurisation Wi-Fi (Access Points).
-* **Base de données :** Conception d'un dictionnaire de données, modélisation par arbres algébriques et migration Excel vers SQL.
+Le site est structuré en plusieurs sections pour offrir une vision complète de mon profil :
 
-### 2. Projets Académiques
-* **Systèmes Embarqués :** Programmation en C sur Arduino.
-* **Algorithmique :** Simulation du jeu de la vie en C++.
-* **Cybersécurité :** Travaux pratiques sur TryHackMe.
+Compétences techniques : Inventaire des outils, langages et protocoles maîtrisés.
 
-### 3. Expérience Professionnelle
-* **Lima Luxury Group :** Stage de 15 semaines en immersion Cybersécurité et Réseaux.
+Parcours académique : Détails de ma formation en ingénierie.
 
----
+Expériences professionnelles : Synthèse de mes immersions en entreprise et stages.
 
-## Structure des fichiers
-* `/HTML` : Contient les pages détaillées des projets (projet-reseau.html, etc.).
-* `/CSS` : Feuilles de style pour le design "Glassmorphism" et l'animation Matrix.
-* `/IMAGE` : Captures d'écran des architectures, schémas SQL et preuves techniques.
-* `index.html` : Page d'accueil du portfolio.
+Projets académiques : Travaux réalisés dans le cadre de mes études (Réseaux, Systèmes, Data).
+
+Projets solo : Réalisations personnelles et expérimentations techniques indépendantes.
 
 
 
