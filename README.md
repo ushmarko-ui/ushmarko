@@ -16,6 +16,7 @@ Bienvenue sur le dépôt de mon portfolio personnel. Ce site a été conçu pour
 ![Cisco](https://img.shields.io/badge/cisco%20packet%20tracer-%23121011.svg?style=for-the-badge&logo=cisco&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![SFML](https://img.shields.io/badge/SFML-%238CC445.svg?style=for-the-badge&logo=sfml&logoColor=white)
+![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
 
 ---
 
