@@ -7,40 +7,32 @@ Bienvenue sur le dépôt de mon portfolio personnel. Ce site a été conçu pour
 
 ---
 
-## À propos du Portfolio
-Ce portfolio est une vitrine interactive utilisant un thème inspiré de l'univers "Matrix" (Digital Rain). Il met en avant mes capacités à concevoir des infrastructures réseau, à gérer des bases de données complexes et à sécuriser des systèmes.
 
-### Technologies utilisées
+### Compétences Maîtrisées
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)
 ![SQL](https://img.shields.io/badge/SQL-00758F?style=for-the-badge&logo=mysql&logoColor=white)
+![Cisco](https://img.shields.io/badge/cisco%20packet%20tracer-%23121011.svg?style=for-the-badge&logo=cisco&logoColor=white)
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![SFML](https://img.shields.io/badge/SFML-%238CC445.svg?style=for-the-badge&logo=sfml&logoColor=white)
+![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
 
 ---
 
 ## Contenu du Projet
 
-### 1. Projet FUNKYTOWN (Simulation d'Infrastructure)
-Un projet majeur de simulation réseau sous **Cisco Packet Tracer** incluant :
-* **Architecture Multi-sites :** Interconnexion de 4 sites distants en IPv6.
-* **Sécurité & Services :** Configuration de VLANs, DHCP IPv6, et sécurisation Wi-Fi (Access Points).
-* **Base de données :** Conception d'un dictionnaire de données, modélisation par arbres algébriques et migration Excel vers SQL.
+Le site est structuré en plusieurs sections pour offrir une vision complète de mon profil :
 
-### 2. Projets Académiques
-* **Systèmes Embarqués :** Programmation en C sur Arduino.
-* **Algorithmique :** Simulation du jeu de la vie en C++.
-* **Cybersécurité :** Travaux pratiques sur TryHackMe.
+Compétences techniques : Inventaire des outils, langages et protocoles maîtrisés.
 
-### 3. Expérience Professionnelle
-* **Lima Luxury Group :** Stage de 15 semaines en immersion Cybersécurité et Réseaux.
+Parcours académique : Détails de ma formation en ingénierie.
 
----
+Expériences professionnelles : Synthèse de mes immersions en entreprise et stages.
 
-## Structure des fichiers
-* `/HTML` : Contient les pages détaillées des projets (projet-reseau.html, etc.).
-* `/CSS` : Feuilles de style pour le design "Glassmorphism" et l'animation Matrix.
-* `/IMAGE` : Captures d'écran des architectures, schémas SQL et preuves techniques.
-* `index.html` : Page d'accueil du portfolio.
+Projets académiques : Travaux réalisés dans le cadre de mes études (Réseaux, Systèmes, Data).
+
+Projets solo : Réalisations personnelles et expérimentations techniques indépendantes.
 
 
 
