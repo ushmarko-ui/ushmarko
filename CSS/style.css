@@ -2,41 +2,39 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #000; /* Fond noir obligatoire pour Matrix */
+    background-color: #000;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
     color: white;
     overflow-x: hidden;
 }
 
-/* Le Canvas Matrix qui prend tout l'écran en arrière-plan */
 #matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Derrière tout le contenu */
+    z-index: -1;
     display: block;
 }
 
-/* --- LE CONTENEUR QUI CENTRE TOUT --- */
+/* --- LE CONTENEUR PRINCIPAL --- */
 .page-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center; 
-    padding: 50px;
+    padding: 50px 20px;
     box-sizing: border-box;
     min-height: 100vh;
     gap: 30px;
     position: relative;
-    z-index: 1; /* Devant le canvas */
-    background: transparent;
+    z-index: 1;
 }
 
-/* Style commun "Glassmorphism" (Cartes translucides) */
+/* --- CARTES GLASSMORPHISM --- */
 .glass-card {
-    background: rgba(15, 23, 42, 0.6); /* Un peu plus sombre pour mieux voir le vert */
+    background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -45,114 +43,140 @@ body {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
     width: 100%;
     box-sizing: border-box;
+    transition: transform 0.3s ease;
 }
 
-/* --- SECTIONS --- */
-.profile-card, .projects-container, .cards-container {
-    max-width: 900px;
-    width: 100%;
+/* Largeur max pour les blocs du haut */
+.profile-card, .projects-container {
+    max-width: 1100px;
 }
 
-.projects-container h2, .about-card h2 {
-    color: #38bdf8;
-    margin-top: 0;
-    font-size: 1.8rem;
-}
-
-.projects-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.projects-list li {
-    padding: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.3s ease;
-}
-
-.projects-list li:last-child { border-bottom: none; }
-
-.projects-list li:hover {
-    background: rgba(56, 189, 248, 0.1);
-    border-radius: 10px;
-}
-
-.projects-list a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    display: block;
-}
-
-/* --- DISPOSITION CARTES DU BAS --- */
-.cards-container {
+/* --- LAYOUT DEUX COLONNES (PARCOURS & SKILLS) --- */
+.main-content-layout {
     display: flex;
     flex-direction: row;
     gap: 25px;
+    max-width: 1100px;
+    width: 100%;
+    align-items: flex-start;
 }
 
-.about-card {
+.left-column {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.right-column {
     flex: 1;
 }
 
-/* --- ÉLÉMENTS INTERNES --- */
-.main-layout { 
-    display: flex; 
-    align-items: center; 
-    gap: 40px; 
-}
+/* --- TEXTES ET LISTES --- */
+h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
+.tagline { color: #38bdf8; margin-bottom: 20px; }
+.welcome-text { font-size: 2.5rem; margin: 0; }
 
+.projects-list { list-style: none; padding: 0; margin: 0; }
+.projects-list li {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+.projects-list li:hover { background: rgba(56, 189, 248, 0.1); border-radius: 10px; }
+.projects-list a { color: white; text-decoration: none; font-size: 1.1rem; display: block; }
+
+/* --- PROFILE --- */
+.profile-layout { display: flex; align-items: center; gap: 40px; }
 .profile-img {
-    width: 180px; 
-    height: 180px;
-    border-radius: 50%; 
-    border: 3px solid #38bdf8;
+    width: 180px; height: 180px;
+    border-radius: 50%; border: 3px solid #38bdf8;
     object-fit: cover;
     box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
 
-.welcome-text { font-size: 2.5rem; margin: 0; }
-.tagline { color: #38bdf8; margin-bottom: 20px; }
+/* --- BOUTONS --- */
+.btn { text-decoration: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; transition: 0.3s; display: inline-block; }
+.btn-primary { background: #38bdf8; color: #0f172a; margin-right: 10px; margin-top: 10px;}
+.btn-primary:hover { box-shadow: 0 0 15px #38bdf8; transform: scale(1.05); }
+.btn-more { display: inline-block; margin-top: 15px; color: #38bdf8; text-decoration: none; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+.btn-more:hover { transform: translateX(5px); color: white; }
 
-/* BOUTONS */
-.btn { 
-    text-decoration: none; 
-    padding: 12px 24px; 
-    border-radius: 10px; 
-    font-weight: 600; 
-    transition: 0.3s; 
-    display: inline-block; 
-}
-
-.btn-primary { 
-    background: #38bdf8; 
-    color: #0f172a; 
-}
-
-.btn-primary:hover {
-    box-shadow: 0 0 15px #38bdf8;
-    transform: scale(1.05);
-}
-
-.btn-more {
-    display: inline-block; 
-    margin-top: 15px; 
-    color: #38bdf8;
-    text-decoration: none; 
-    font-weight: 700; 
-    text-transform: uppercase;
+/* --- SYSTÈME DE COMPÉTENCES (INDIVIDUEL) --- */
+.skill-entry { 
+    margin-bottom: 20px;
+    padding: 5px;
     transition: 0.3s;
 }
 
-.btn-more:hover { transform: translateX(5px); color: white; }
+.skill-label { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    margin-bottom: 8px; 
+}
+
+.skill-label img { 
+    width: 22px; 
+    height: 22px; 
+    object-fit: contain;
+}
+
+.bar-bg {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    height: 10px;
+    border-radius: 5px;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    border-radius: 5px;
+    width: 0; /* Part de 0 pour l'animation */
+    transition: width 1.5s cubic-bezier(0.1, 0.5, 0.5, 1);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+/* Déclenche le remplissage des barres au chargement de la colonne */
+.right-column .bar-fill {
+    /* La largeur finale est gérée par le style="width:XX%" dans le HTML */
+}
+
+/* --- HOVER SUR UNE SEULE COMPÉTENCE --- */
+
+/* Affichage du pourcentage individuel */
+.bar-bg::after {
+    content: attr(data-pct);
+    position: absolute;
+    right: 0;
+    top: -22px;
+    color: #38bdf8;
+    font-weight: bold;
+    font-size: 13px;
+    opacity: 0; /* Caché par défaut */
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+}
+
+.skill-entry:hover .bar-bg::after {
+    opacity: 1; /* Apparaît au survol de la ligne */
+    transform: translateY(0);
+}
+
+.skill-entry:hover .bar-fill {
+    filter: brightness(1.2);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 850px) {
-    .main-layout, .cards-container { 
+    .profile-layout, .main-content-layout { 
         flex-direction: column; 
+        align-items: center; 
         text-align: center; 
     }
-    .page-wrapper { padding: 20px; }
+    .right-column { width: 100%; }
     .welcome-text { font-size: 1.8rem; }
+    .profile-layout { gap: 20px; }
 }
