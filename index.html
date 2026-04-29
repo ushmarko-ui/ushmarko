@@ -32,12 +32,16 @@
         <div class="glass-card projects-container">
             <h2>Mes Projets Académiques</h2>
             <ul class="projects-list">
-                <li><a href="HTML/projet-systeme.html">Projet Systèmes Embarqués en C Arduino</a></li>
-                <li><a href="HTML/projet-algo.html">Simulation du jeu de la vie en C++</a></li>
-                <li><a href="HTML/projet-BDD.html">Projet base de données</a></li>
-                <li><a href="HTML/projet-reseau.html">Projet réseaux</a></li>
-            </ul>
-        </div>
+    <li><a href="HTML/projet-systeme.html" class="project-trigger">Projet Systèmes Embarqués en C Arduino</a>
+    </li>
+    <li><a href="HTML/projet-algo.html" class="project-trigger">Simulation du jeu de la vie en C++</a>
+    </li>
+    <li><a href="HTML/projet-BDD.html" class="project-trigger">Projet base de données</a>
+    </li>
+    <li><a href="HTML/projet-reseau.html" class="project-trigger">Projet réseaux</a>
+    </li>
+</ul>
+    </div>
 
         <div class="main-content-layout">
             
@@ -146,34 +150,66 @@
                 </section>
             </div>
         </div> </div> <script>
-        function startMatrix() {
-            const canvas = document.getElementById('matrixCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            canvas.height = window.innerHeight;
-            canvas.width = window.innerWidth;
-            const characters = '01';
-            const fontSize = 16;
-            const columns = Math.floor(canvas.width / fontSize);
-            const drops = [];
-            for (let x = 0; x < columns; x++) drops[x] = 1;
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#0F0';
-                ctx.font = fontSize + 'px arial';
-                for (let i = 0; i < drops.length; i++) {
-                    const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                }
+    // --- 1. ANIMATION MATRIX ---
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
             }
-            if (window.matrixInterval) clearInterval(window.matrixInterval);
-            window.matrixInterval = setInterval(draw, 33);
         }
-        document.addEventListener('DOMContentLoaded', startMatrix);
-        window.addEventListener('resize', startMatrix);
-    </script>
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+
+    
+    function setupTransitions() {
+        
+        document.querySelectorAll('.project-trigger').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                
+                const targetUrl = this.href;
+                const overlay = document.getElementById('overlay');
+                const wrapper = document.querySelector('.page-wrapper');
+
+                
+                if (overlay) overlay.classList.add('transition-active');
+                if (wrapper) wrapper.classList.add('page-exit');
+
+               
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 600);
+            });
+        });
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        startMatrix();
+        setupTransitions();
+    });
+
+    
+    window.addEventListener('resize', startMatrix);
+</script>
 </body>
 </html>

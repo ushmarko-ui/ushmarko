@@ -42,7 +42,7 @@ body {
     100% { width: 250px; opacity: 0.8; }
 }
 
-/* --- TEXTE DE STATUT --- */
+
 .status-text {
     margin-top: 20px;
     text-transform: uppercase;
@@ -57,12 +57,12 @@ body {
     50% { opacity: 0.2; }
 }
 
-/* --- LA CARTE GLASS (Apparition) --- */
+
 .timeline-container {
     max-width: 650px;
     width: 100%;
     margin-top: 40px;
-    background: rgba(255, 255, 255, 0.05); /* Effet verre */
+    background: rgba(255, 255, 255, 0.05); 
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 30px;
@@ -70,7 +70,7 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     
     opacity: 0;
-    animation: fadeIn 1s forwards 1.5s; /* Après la barre charge */
+    animation: fadeIn 1s forwards 1.5s; 
 }
 
 @keyframes fadeIn {
@@ -78,7 +78,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- FRISE CHRONOLOGIQUE --- */
+
 .timeline {
     position: relative;
     margin: 40px 0;
@@ -137,7 +137,7 @@ body {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* --- DÉLAIS D'APPARITION --- */
+
 .timeline-item:nth-child(1) { animation-delay: 2.7s; }
 .timeline-item:nth-child(2) { animation-delay: 3.0s; }
 .timeline-item:nth-child(3) { animation-delay: 3.3s; }
@@ -146,7 +146,7 @@ body {
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* --- BOUTON RETOUR --- */
+
 .btn-secondary {
     display: inline-block;
     text-decoration: none;

@@ -102,10 +102,10 @@
     </div>
 
     </div> <script>
-    // Cette fonction contient toute la logique de l'animation
+    
     function startMatrix() {
         const canvas = document.getElementById('matrixCanvas');
-        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
+        if (!canvas) return; 
 
         const ctx = canvas.getContext('2d');
         canvas.height = window.innerHeight;
@@ -136,18 +136,11 @@
                 drops[i]++;
             }
         }
-
-        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
-        if (window.matrixInterval) clearInterval(window.matrixInterval);
+if (window.matrixInterval) clearInterval(window.matrixInterval);
         window.matrixInterval = setInterval(draw, 33);
     }
-
-    // --- LA MAGIE EST ICI ---
-    // On lance l'animation au chargement du DOM
-    document.addEventListener('DOMContentLoaded', startMatrix);
-    // On la relance si on redimensionne
+document.addEventListener('DOMContentLoaded', startMatrix);
     window.addEventListener('resize', startMatrix);
-    // Au cas où le DOM est déjà chargé (navigation rapide)
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         startMatrix();
     }

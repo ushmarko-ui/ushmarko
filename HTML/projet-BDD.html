@@ -224,11 +224,10 @@ Sécurité : On voit des champs comme Password et Email. C'est l'aspect "authent
     </div>
 
     </div> <script>
-    // Cette fonction contient toute la logique de l'animation
+    
     function startMatrix() {
         const canvas = document.getElementById('matrixCanvas');
-        if (!canvas) return; // Sécurité : si le canvas n'est pas là, on arrête
-
+        if (!canvas) return; 
         const ctx = canvas.getContext('2d');
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
@@ -237,11 +236,9 @@ Sécurité : On voit des champs comme Password et Email. C'est l'aspect "authent
         const fontSize = 16;
         const columns = Math.floor(canvas.width / fontSize);
         const drops = [];
-
         for (let x = 0; x < columns; x++) {
             drops[x] = 1;
         }
-
         function draw() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -258,18 +255,11 @@ Sécurité : On voit des champs comme Password et Email. C'est l'aspect "authent
                 drops[i]++;
             }
         }
-
-        // Nettoie l'ancien intervalle s'il existe pour éviter de ralentir le PC
         if (window.matrixInterval) clearInterval(window.matrixInterval);
         window.matrixInterval = setInterval(draw, 33);
     }
-
-    // --- LA MAGIE EST ICI ---
-    // On lance l'animation au chargement du DOM
     document.addEventListener('DOMContentLoaded', startMatrix);
-    // On la relance si on redimensionne
     window.addEventListener('resize', startMatrix);
-    // Au cas où le DOM est déjà chargé (navigation rapide)
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         startMatrix();
     }

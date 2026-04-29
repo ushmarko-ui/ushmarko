@@ -1,4 +1,4 @@
-/* --- RESET ET FOND ANIMÉ --- */
+
 body {
     margin: 0;
     padding: 0;
@@ -19,7 +19,7 @@ body {
     display: block;
 }
 
-/* --- LE CONTENEUR PRINCIPAL --- */
+
 .page-wrapper {
     display: flex;
     flex-direction: column;
@@ -32,7 +32,7 @@ body {
     z-index: 1;
 }
 
-/* --- CARTES GLASSMORPHISM --- */
+
 .glass-card {
     background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(12px);
@@ -46,12 +46,12 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Largeur max pour les blocs du haut */
+
 .profile-card, .projects-container {
     max-width: 1100px;
 }
 
-/* --- LAYOUT DEUX COLONNES (PARCOURS & SKILLS) --- */
+
 .main-content-layout {
     display: flex;
     flex-direction: row;
@@ -72,7 +72,7 @@ body {
     flex: 1;
 }
 
-/* --- TEXTES ET LISTES --- */
+
 h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
 .tagline { color: #38bdf8; margin-bottom: 20px; }
 .welcome-text { font-size: 2.5rem; margin: 0; }
@@ -86,7 +86,7 @@ h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
 .projects-list li:hover { background: rgba(56, 189, 248, 0.1); border-radius: 10px; }
 .projects-list a { color: white; text-decoration: none; font-size: 1.1rem; display: block; }
 
-/* --- PROFILE --- */
+
 .profile-layout { display: flex; align-items: center; gap: 40px; }
 .profile-img {
     width: 180px; height: 180px;
@@ -95,14 +95,14 @@ h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
     box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
 
-/* --- BOUTONS --- */
+
 .btn { text-decoration: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; transition: 0.3s; display: inline-block; }
 .btn-primary { background: #38bdf8; color: #0f172a; margin-right: 10px; margin-top: 10px;}
 .btn-primary:hover { box-shadow: 0 0 15px #38bdf8; transform: scale(1.05); }
 .btn-more { display: inline-block; margin-top: 15px; color: #38bdf8; text-decoration: none; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
 .btn-more:hover { transform: translateX(5px); color: white; }
 
-/* --- SYSTÈME DE COMPÉTENCES (INDIVIDUEL) --- */
+
 .skill-entry { 
     margin-bottom: 20px;
     padding: 5px;
@@ -138,14 +138,14 @@ h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
     box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
 }
 
-/* Déclenche le remplissage des barres au chargement de la colonne */
+
 .right-column .bar-fill {
-    /* La largeur finale est gérée par le style="width:XX%" dans le HTML */
+   
 }
 
-/* --- HOVER SUR UNE SEULE COMPÉTENCE --- */
 
-/* Affichage du pourcentage individuel */
+
+
 .bar-bg::after {
     content: attr(data-pct);
     position: absolute;
@@ -179,4 +179,30 @@ h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
     .right-column { width: 100%; }
     .welcome-text { font-size: 1.8rem; }
     .profile-layout { gap: 20px; }
+}
+
+
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #00FF00; /* Vert Matrix */
+    z-index: 9999;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.transition-active {
+    transform: scaleY(1);
+}
+
+.page-exit {
+    filter: brightness(2) contrast(2);
+    transform: scale(1.1);
+    transition: 0.6s ease-in;
+    opacity: 0;
 }

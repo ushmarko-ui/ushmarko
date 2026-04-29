@@ -1,40 +1,40 @@
-/* --- BASES & MATRIX --- */
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #000; /* Fond noir pour que le vert ressorte */
+    background-color: #000; 
     font-family: 'Inter', sans-serif;
     color: white;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Le Canvas qui contient l'animation de 0 et 1 */
+
 #matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Derrière tout le contenu */
+    z-index: -1; 
     display: block;
 }
 
 .page-wrapper {
     position: relative;
-    z-index: 1; /* Devant le Canvas */
+    z-index: 1; 
     max-width: 1000px;
     margin: 0 auto;
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    background: transparent; /* Pour voir l'animation à travers */
+    background: transparent; 
 }
 
-/* --- DESIGN GLASS (Plus opaque pour la lisibilité) --- */
+
 .glass-card {
-    background: rgba(15, 23, 42, 0.8); /* Augmenté à 0.8 pour mieux lire avec les chiffres qui défilent */
+    background: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -47,7 +47,7 @@ h1 { font-size: 2.8rem; text-align: center; margin: 0; }
 h2 { color: #38bdf8; border-left: 4px solid #38bdf8; padding-left: 15px; margin-bottom: 20px; }
 .subtitle { text-align: center; color: #38bdf8; margin-top: 10px; }
 
-/* --- GRILLE COMPOSANTS --- */
+
 .components-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -69,7 +69,7 @@ h2 { color: #38bdf8; border-left: 4px solid #38bdf8; padding-left: 15px; margin-
     transform: translateY(-5px);
 }
 
-/* --- IMAGES & LAYOUT --- */
+
 .img-full { 
     width: 100%; 
     border-radius: 15px; 
@@ -82,7 +82,7 @@ h2 { color: #38bdf8; border-left: 4px solid #38bdf8; padding-left: 15px; margin-
 .split-content { display: flex; gap: 30px; align-items: center; }
 .margin-top { margin-top: 25px; }
 
-/* --- CODE BLOCK STYLE --- */
+
 .code-block {
     background: #010811;
     padding: 20px;
