@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroLink — Assistant IA | Marko</title>
+    
+    <link rel="stylesheet" href="../CSS/projet-systeme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card">
+            <h1>AstroLink — Assistant IA</h1>
+            <p class="subtitle">Neural Interface v1.0 — Interface web interactive pour modèles d'IA locaux via Ollama</p>
+            
+            <div class="margin-top">
+                <p><strong>Note technique :</strong> Interface web sous SvelteKit et Tailwind CSS communiquant en local avec des modèles LLM et Vision via l'API Ollama[cite: 21].</p>
+            </div>
+
+            <img src="../IMAGE/astrolink.jpg" alt="AstroLink Interface" class="img-full">
+        </header>
+
+        <section class="glass-card">
+            <h2>I. Architecture & Fonctionnalités</h2>
+            <p>
+                AstroLink permet d'échanger en toute confidentialité avec des modèles d'IA exécutés en local[cite: 21].
+            </p>
+
+            <div class="components-grid">
+                <div class="comp-item"><strong>Design Spatial :</strong> Thème sombre & néons cyan[cite: 17, 21]</div>
+                <div class="comp-item"><strong>Gestion Tchats :</strong> Historique dynamique</div>
+                <div class="comp-item"><strong>Multimodal :</strong> Support des images (Llava)</div>
+                <div class="comp-item"><strong>Import/Export :</strong> Sauvegarde locale</div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>II. Extraits de Code Clés</h2>
+
+            <h3>1. Réception du flux IA (Streaming SSE)</h3>
+            <p>Lecture en direct de la réponse générée mot par mot par l'API Ollama :</p>
+            <pre class="code-block"><code>// Lecture du flux de réponse renvoyé par Ollama
+const reader = res.body
+    .pipeThrough(new TextDecoderStream())
+    .pipeThrough(splitStream("\n"))
+    .getReader();
+
+while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    
+    let data = JSON.parse(value);
+    responseMessage.content += data.message.content; // Mise à jour en temps réel
+}</code></pre>
+
+            <h3 class="margin-top">2. Stockage 100% local (IndexedDB)</h3>
+            <p>Sauvegarde des historiques de discussion directement dans le navigateur du client :</p>
+            <pre class="code-block"><code>// Création du store IndexedDB pour enregistrer les conversations
+const DB = await openDB("Chats", 1, {
+    upgrade(db) {
+        const store = db.createObjectStore("chats", { keyPath: "id", autoIncrement: true });
+        store.createIndex("timestamp", "timestamp");
+    }
+});</code></pre>
+
+            <h3 class="margin-top">3. Titre automatique par le LLM</h3>
+            <p>Génération d'un titre court résumant le premier message de l'utilisateur :</p>
+            <pre class="code-block"><code>// Prompt envoyé au modèle pour résumer l'échange en 3 à 5 mots
+body: JSON.stringify({
+    model: selectedModels[0],
+    prompt: `Generate a brief 3-5 word title for this question: ${userPrompt}`,
+    stream: false
+})</code></pre>
+        </section>
+
+       <section class="glass-card" style="text-align: center;">
+            <h2>III. Démo</h2>
+            <p>Accéder à l'interface en ligne :</p>
+            
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <strong>Note :</strong> L'application est conçue pour communiquer directement avec une instance <strong>Ollama locale</strong> (exécutée sur votre propre machine). La démo en ligne permet d'explorer l'interface visuelle, mais ne pourra pas générer de réponses sans un serveur Ollama local actif.
+                <em>Il est prévu d'héberger prochainement le modèle en ligne afin de rendre les conversations directement fonctionnelles sur la démo.</em>
+            </p>
+
+            <a href="https://ushmarko-ui.github.io/Projet_IA/" target="_blank" class="logo-btn-card">
+    <img src="../IMAGE/Capture d'écran 2026-09-27 150739.png" alt="Lancer la démo AstroLink">
+    <span>Lancer la démo en ligne →</span>
+</a>
+        </section>
+    </div>
+
+    <script>
+        function startMatrix() {
+            const canvas = document.getElementById('matrixCanvas');
+            if (!canvas) return; 
+
+            const ctx = canvas.getContext('2d');
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+
+            const characters = '01';
+            const fontSize = 16;
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = [];
+
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px arial';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            if (window.matrixInterval) clearInterval(window.matrixInterval);
+            window.matrixInterval = setInterval(draw, 33);
+        }
+
+        document.addEventListener('DOMContentLoaded', startMatrix);
+        window.addEventListener('resize', startMatrix);
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            startMatrix();
+        }
+    </script>
+</body>
+</html>
