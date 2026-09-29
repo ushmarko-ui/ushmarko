@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification — Introduction to Cybersecurity</title>
+    <link rel="stylesheet" href="../CSS/projet-systeme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card certif-viewer-card">
+            <h1>Introduction to Cybersecurity</h1>
+            <p class="subtitle">Cisco Networking Academy — Verified Credential</p>
+            
+            <img src="../IMAGE/CCNA.png" alt="CCNA Certification" class="certif-img" style="width: 100%; max-width: 1000px;">
+        </header>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        const letters = '01';
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 33);
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        });
+    </script>
+</body>
+</html>

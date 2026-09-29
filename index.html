@@ -19,7 +19,7 @@
                 </div>
                 <div class="text-column">
                     <h1 class="welcome-text">Portfolio de Marko De Cespedes</h1>
-                    <p class="tagline">Étudiant en 2ème année : Ingénieur en Cybersécurité</p>
+                    <p class="tagline">Étudiant en 3ème année à CESI Ecole d'ingénieurs: Ingénieur IT</p>
                     <div class="links">
                         <a href="https://github.com/ushmarko-ui" target="_blank" class="btn btn-primary">Mon GitHub</a>
                         <a href="https://www.linkedin.com/in/marko-de-cespedes-139695360/" target="_blank" class="btn btn-primary">Mon Linkedin</a>
@@ -52,24 +52,40 @@
 
         <div class="main-content-layout">
             
-            <div class="left-column">
-                <div class="glass-card about-card">
-                    <h2>Mon parcours étudiant</h2>
-                    <p>Spécialisation en développement logiciel et cybersécurité...</p>
-                    <a href="HTML/parcours.html" class="btn-more">EN SAVOIR PLUS →</a>
-                </div>
-                
-                <div class="glass-card about-card">
-                    <h2>Mon parcours professionnel</h2>
-                    <p>Stage à venir pour perfectionner mes compétences...</p>
-                    <a href="HTML/professionnel.html" class="btn-more">EN SAVOIR PLUS →</a>
-                </div>
-            </div>
+            <!-- COLONNE DE GAUCHE -->
+<div class="left-column">
 
-            <div class="right-column">
-    <section class="glass-card skills-box">
+    <!-- 1. Parcours étudiant -->
+    <div class="glass-card about-card">
+        <h2>Mon parcours étudiant</h2>
+        <p>Spécialisation en développement logiciel et cybersécurité...</p>
+        <a href="HTML/parcours.html" class="btn-more">EN SAVOIR PLUS →</a>
+    </div>
+
+    <!-- 2. Parcours professionnel -->
+    <div class="glass-card about-card">
+        <h2>Mon parcours professionnel</h2>
+        <p>Stage à venir pour perfectionner mes compétences...</p>
+        <a href="HTML/professionnel.html" class="btn-more">EN SAVOIR PLUS →</a>
+    </div>
+
+    <!-- 3. Certifications Cisco (Troisième carte de la colonne gauche) -->
+    <div class="glass-card certifs-card">
+        <h2>Certifications Cisco</h2>
+        <div class="certifs-grid">
+            <a href="HTML/CCNA.html" class="btn-certif-neon">CCNA 1 →</a>
+            <a href="HTML/certif-cyber.html" class="btn-certif-neon">Cybersecurity →</a>
+            <a href="HTML/certif-ia.html" class="btn-certif-neon">Modern AI →</a>
+            <a href="HTML/certif-networkbasics.html" class="btn-certif-neon">Networking Basics →</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- COLONNE DE DROITE -->
+<div class="right-column">
+    <div class="glass-card skills-card">
         <h2>Compétences</h2>
-
         <div class="skill-entry">
             <div class="skill-label">
                 <img src="https://img.icons8.com/color/48/c-plus-plus-logo.png" alt="">
@@ -150,13 +166,13 @@
                 <div class="bar-fill" style="width: 60%;"></div>
             </div>
         </div>
-
-    </section>
+    </div>
 </div>
-                    </div>
-                </section>
-            </div>
-        </div> </div> <script>
+</div>
+
+                    
+           
+     <script>
     // --- 1. ANIMATION MATRIX ---
     function startMatrix() {
         const canvas = document.getElementById('matrixCanvas');
