@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Jeu de la Vie | Marko</title>
+    
+    <link rel="stylesheet" href="../CSS/projet-algo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card header-section">
+            <h1>Simulation du Jeu de la Vie</h1>
+            <p class="subtitle">Automate cellulaire développé en C++ (SFML & Console)</p>
+            
+            <div class="intro-box">
+                <p><strong>Note technique :</strong> Le Jeu de la Vie est un automate cellulaire imaginé par John Conway : une simulation mathématique où des cellules évoluent selon des règles de survie et de reproduction. L'évolution de chaque cellule dépend de ses 8 voisines directes.</p>
+                <ul class="intro-list">
+                    <li><strong>Survie :</strong> Reste en vie si elle a 2 ou 3 voisines vivantes.</li>
+                    <li><strong>Mort :</strong> Meurt par solitude (<2) ou surpopulation (>3).</li>
+                    <li><strong>Naissance :</strong> Devient vivante si elle a exactement 3 voisines vivantes.</li>
+                </ul>
+            </div>
+            <img src="../IMAGE/Screen_game_of_life.png" alt="Game of Life Cover" class="img-full">
+        </header>
+
+        <section class="glass-card">
+            <h2>I. Modélisation et Diagrammes UML</h2>
+            <div class="split-content">
+                <div class="text-side">
+                    <h3>Diagramme de Classes</h3>
+                    <p>L'architecture repose sur une séparation stricte des responsabilités :</p>
+                    <ul>
+                        <li><strong>Grid :</strong> Gère la matrice de <code>Cell</code>.</li>
+                        <li><strong>Game :</strong> Coordonne l'évolution et les générations.</li>
+                        <li><strong>Rule :</strong> Définit les conditions de survie/naissance.</li>
+                        <li><strong>SFMLRenderer :</strong> Gère l'affichage graphique.</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <img src="../IMAGE/diagramme_classes.png" alt="Diagramme de classes UML" class="img-responsive">
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>II. Logique de Fonctionnement</h2>
+            <div class="split-content reverse">
+                <div class="text-side">
+                    <h3>Mode Console vs Mode Graphique</h3>
+                    <p>Le projet propose deux workflows distincts :</p>
+                    <ul class="step-list">
+                        <li><strong>Console :</strong> Chargement fichier → Choix itérations → Affichage texte.</li>
+                        <li><strong>Graphique :</strong> Menu UI → Rendu SFML temps réel.</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <img src="../IMAGE/activité.png" alt="Diagramme d'activité" class="img-responsive">
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>III. Architecture du Projet</h2>
+            <div class="files-grid">
+                <div class="file-box">
+                    <h4>Fichiers En-tête (.hpp)</h4>
+                    <code>Grid.hpp, Game.hpp, Rule.hpp, Cell.hpp, SFMLRenderer.hpp</code>
+                </div>
+                <div class="file-box">
+                    <h4>Fichiers Sources (.cpp)</h4>
+                    <code>Grid.cpp, Game.cpp, Rule.cpp, SFMLRenderer.cpp, main.cpp</code>
+                </div>
+            </div>
+            <img src="../IMAGE/structure_de_fichiers.png" alt="Structure des fichiers" class="img-full margin-top">
+        </section>
+
+        <section class="glass-card">
+            <h2>IV. Algorithme des Règles (Rule.cpp)</h2>
+            <pre class="code-block">
+<code>bool Rule::willBeAlive(bool currentState, int aliveNeighbors) {
+    if (currentState) {
+        // Survie si 2 ou 3 voisins
+        return (aliveNeighbors == 2 || aliveNeighbors == 3);
+    } else {
+        // Naissance si exactement 3 voisins
+        return (aliveNeighbors == 3);
+    }
+}</code></pre>
+        </section>
+    </div>
+
+    </div> <script>
+    
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return; 
+
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+    document.addEventListener('DOMContentLoaded', startMatrix);
+    window.addEventListener('resize', startMatrix);
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
+</body>
+</html>

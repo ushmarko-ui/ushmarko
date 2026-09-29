@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Réseau Multi-sites | Marko</title>
+    
+    <link rel="stylesheet" href="../CSS/projet-reseau.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="page-wrapper">
+        <a href="../index.html" class="btn-back">← Retour au portfolio</a>
+
+        <header class="glass-card header-section">
+            <h1>Projet FUNKYTOWN</h1>
+            <p class="subtitle">Simulation d'Infrastructure Multi-sites sous Cisco Packet Tracer</p>        
+            
+            <div class="intro-dev">
+                <p><strong>Note technique :</strong> Ce projet a été entièrement réalisé sur <strong>Cisco Packet Tracer</strong>. Nous avons configuré l'intégralité des équipements actifs (Routeurs, Switchs) et les services réseau pour interconnecter quatre sites distants en IPv6.</p>
+                <ul class="intro-list">
+                    <li><strong>Équipements :</strong> Configuration individuelle de chaque <strong>Routeur</strong> (routage IPv6) et de chaque <strong>Switch</strong> (VLANs).</li>
+                    <li><strong>Adressage Dynamique :</strong> Programmation des pools <strong>DHCP IPv6</strong> pour l'auto-configuration des PC.</li>
+                    <li><strong>Connectivité Sans-fil :</strong> Déploiement et sécurisation du <strong>Wi-Fi</strong> via des bornes d'accès (Access Points).</li>
+                </ul>
+            </div>
+            <img src="../IMAGE/site_funkytown.png" alt="Funkytown" class="img-full img-border">
+        </header>
+
+        <section class="glass-card">
+            <h2>I. Analyse du Besoin et Planification</h2>
+            <div class="margin-top">
+                <h3>Diagramme GANTT</h3>
+                <p>Ordonnancement des tâches sur 4 semaines pour garantir la livraison du projet.</p>
+                <img src="../IMAGE/Gantt.png" alt="Diagramme GANTT" class="img-full img-border">
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>II. Plan d'Adressage IPv6 & Services</h2>
+            <p>Conception d'un plan d'adressage hiérarchique pour une segmentation nette sans NAT.</p>
+            <img src="../IMAGE/plan_Dadressage.png" alt="Plan d'adressage Excel" class="img-full img-border">
+            
+            <div class="explanation-box">
+                <h3>Configurations Techniques :</h3>
+                <ul>
+                    <li><strong>IPv6 Unicast :</strong> Activation du routage global sur les équipements Cisco.</li>
+                    <li><strong>DHCP IPv6 :</strong> Attribution automatique pour éviter les conflits d'IP.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>III. Architecture Détaillée par Site</h2>
+
+            <div class="site-block">
+                <h3>1. Site ENGIE (Hotline & Conception)</h3>
+                <p>Pôle le plus dense nécessitant une gestion avancée de la connectivité filaire et mobile via une cascade de commutateurs Cisco.</p>
+                <img src="../IMAGE/Engie.png" alt="Site Engie" class="img-full">
+                <div class="tech-tag"><strong>Wi-Fi :</strong> Bornes AP configurées pour les Laptops et Smartphones.</div>
+            </div>
+
+            <hr class="separator">
+
+            <div class="site-block">
+                <h3>2. Site BIBLIOTHÈQUE (Accès Public)</h3>
+                <p>Configuration pour assurer l'accès réseau des postes publics et administratifs. Activation du <code>ipv6 unicast-routing</code>.</p>
+                <img src="../IMAGE/Bibli.png" alt="Site Bibliothèque" class="img-full">
+                <img src="../IMAGE/routeur_et_switch_bibli.png" alt="Détails Réseau Bibliothèque" class="img-full">
+            </div>
+
+            <hr class="separator">
+
+            <div class="site-block">
+                <h3>3. Site DATACENTER / DIGIPLEX (Stockage)</h3>
+                <p>Cœur névralgique hébergeant les services critiques (AD, Exchange) avec une architecture multi-étages en étoile étendue.</p>
+                <img src="../IMAGE/digiplex.png" alt="Digiplex" class="img-full">
+                <img src="../IMAGE/datacenter.png" alt="Datacenter" class="img-full">
+            </div>
+
+            <hr class="separator">
+
+            <div class="site-block">
+                <h3>4. Site EXIA (Services Centraux)</h3>
+                <p>Point de ressources commun (DNS, FTP, HTTP) permettant aux autres sites d'accéder aux services via le cœur de réseau (FAI).</p>
+                <img src="../IMAGE/eXia.png" alt="Site eXia" class="img-full">
+            </div>
+        </section>
+
+        <section class="glass-card conclusion-section">
+            <h2>06. Bilan et Conclusion</h2>
+            <div class="conclusion-content">
+                <p>Le projet <strong>Funkytown</strong> a permis de valider l'interconnexion complète d'une infrastructure moderne sous <strong>IPv6</strong>.</p>
+            </div>
+            <div class="alert-box success">
+                <strong>Statut du Projet :</strong> Validé à 100% - Connectivité Totale.
+            </div>
+        </section>
+    </div>
+
+    </div> <script>
+    
+    function startMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        if (!canvas) return; 
+
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+if (window.matrixInterval) clearInterval(window.matrixInterval);
+        window.matrixInterval = setInterval(draw, 33);
+    }
+document.addEventListener('DOMContentLoaded', startMatrix);
+    window.addEventListener('resize', startMatrix);
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startMatrix();
+    }
+</script>
+</body>
+</html>
